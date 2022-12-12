@@ -17,6 +17,14 @@ typedef struct	s_data {
     float   py;
 }				t_data;
 
+void            my_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+  char    *dst;
+
+  dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+  *(unsigned int*)dst = color;
+}
+
 void    ft_erase(t_data *img, float x, float y)
 {
     float tmpx;
@@ -30,7 +38,7 @@ void    ft_erase(t_data *img, float x, float y)
     {
         while (tmpy < y + 5)
         {
-            mlx_pixel_put(img->mlx, img->mlx_win, tmpx, tmpy, 0x00000000);
+            my_mlx_pixel_put(img, tmpx, tmpy, 0x00000000);
             tmpy++;
         }
         tmpy = img->py;
@@ -51,7 +59,7 @@ void    ft_draw(t_data *img, float x, float y)
     {
         while (tmpy < y + 5)
         {
-            mlx_pixel_put(img->mlx, img->mlx_win, tmpx, tmpy, 0x00FF0000);
+            my_mlx_pixel_put(img, tmpx, tmpy, 0x00FF0000);
             tmpy++;
         }
         tmpy = img->py;
@@ -70,21 +78,25 @@ int key_hook(int keycode, t_data *data)
     {
         ft_erase(data, data->px, data->py);
         ft_draw(data, data->px, data->py -= 5);
+        mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, data->px,data->py);
     }
     else if (keycode == 113) // Q
     {
         ft_erase(data, data->px, data->py);
         ft_draw(data, data->px -= 5, data->py);
+        mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, data->px,data->py);
     }
     else if (keycode == 115) // S
     {
         ft_erase(data, data->px, data->py);
         ft_draw(data, data->px, data->py += 5);
+        mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, data->px,data->py);
     }
     else if (keycode == 100) // D
     {
         ft_erase(data, data->px, data->py);
         ft_draw(data, data->px += 5, data->py);
+        mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, data->px,data->py);
     }
     return (0);
 }
@@ -96,11 +108,12 @@ int	main(void)
 	img.mlx = mlx_init();
     img.px = 50;
     img.py = 50;
-	img.mlx_win = mlx_new_window(img.mlx, 1024, 512, "Hello world!");
-    // drawMap2D(&img);
-	// img.img = mlx_new_image(img.mlx, 1024, 512);
-    ft_draw(&img, 0, 0);
-	// mlx_put_image_to_window(img.mlx, img.mlx_win, img.player, img.px, img.py);
+	img.mlx_win = mlx_new_window(img.mlx, 800, 600, "Hello world!");
+    img.img = mlx_new_image(img.mlx, 800, 600);
+    img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+    ft_draw(&img, img.px, img.py);
+    mlx_put_image_to_window(img.mlx, img.mlx_win, img.img, img.px,img.py);
     mlx_key_hook(img.mlx_win, key_hook, &img);
 	mlx_loop(img.mlx);
+    return (0);
 }
