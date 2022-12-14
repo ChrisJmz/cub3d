@@ -1,8 +1,10 @@
 #include <GL/glut.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include "../libft/libft.h"
 #include "../mlx_linux/mlx.h"
+#define PI 3.1415926535
 
 typedef struct	s_data {
 	void	*img;
@@ -15,7 +17,11 @@ typedef struct	s_data {
     void    *player;
     float   px;
     float   py;
+    int map;
 }				t_data;
+
+int mapX= 8; int mapY=8; int mapS=64;
+float pdx, pdy, pa;
 
 void            my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -30,15 +36,13 @@ void    ft_erase(t_data *img, float x, float y)
     float tmpx;
     float tmpy;
 
-    x = img->px;
-    y = img->py;
     tmpx = img->px;
     tmpy = img->py;
     while (tmpx <  x + 5)
     {
         while (tmpy < y + 5)
         {
-            my_mlx_pixel_put(img, tmpx, tmpy, 0x00000000);
+            mlx_pixel_put(img->mlx, img->mlx_win, tmpx, tmpy, 0x00000000);
             tmpy++;
         }
         tmpy = img->py;
@@ -51,21 +55,87 @@ void    ft_draw(t_data *img, float x, float y)
     float tmpx;
     float tmpy;
 
-    x = img->px;
-    y = img->py;
     tmpx = img->px;
     tmpy = img->py;
-    while (tmpx <  x + 5)
+    while (tmpx <  x+5)
     {
-        while (tmpy < y + 5)
+        while (tmpy < y+5)
         {
-            my_mlx_pixel_put(img, tmpx, tmpy, 0x00FF0000);
+            mlx_pixel_put(img->mlx, img->mlx_win, tmpx, tmpy, 0x00FF0000);
             tmpy++;
         }
         tmpy = img->py;
         tmpx++;
     }
     printf("tmpx: %f\ntmpy: %f\n", tmpx, tmpy);
+}
+
+
+void ft_draw_square(t_data *data, int posx, int posy, int color)
+{
+    int x;
+    int y;
+
+    y = -1;
+    while (++y < 800 / 7 / 2)
+    {
+        x = -1;
+        while (++x < 800 / 7 / 2)
+            mlx_pixel_put(data->mlx, data->mlx_win, posx + x, posy + y, color);
+    }
+}
+
+
+int map[]=
+{
+    1,1,1,1,1,1,1,1,
+    1,0,0,0,0,1,0,1,
+    1,0,0,0,1,1,0,1,
+    1,0,0,0,0,0,0,1,
+    1,0,0,0,0,0,0,1,
+    1,1,1,0,0,0,0,1,
+    1,0,0,0,0,0,0,1,
+    1,1,1,1,1,1,1,1,
+};
+
+void ft_minimap(t_data *data)
+{
+    int x = -1, y = -1, xo, yo;
+
+    while (++y < mapY)
+    {
+        while (++x < mapX)
+        {
+            xo = x*mapS;
+            yo = y*mapS;
+            if (map[y*mapX+x] == 1)
+            {
+                ft_draw_square(data, xo, yo, 0x0DA70D6);
+            }
+            else
+                ft_draw_square(data, xo, yo, 0x0FFFF00);
+        }
+        x = -1;
+    }
+}
+
+
+void drawLine(t_data *data, float x, float y)
+{
+    float tmpx;
+    float tmpy;
+    tmpx = data->px;
+    tmpy = data->py;
+    while (tmpx < x + 20)
+    {
+        while (tmpy < y + 2.5)
+        {
+            mlx_pixel_put(data->mlx, data->mlx_win, tmpx, tmpy, 0x0DA70D6);
+            tmpy++;
+        }
+        tmpy = data->py;
+        tmpx++;
+    }
 }
 
 int key_hook(int keycode, t_data *data)
@@ -76,43 +146,69 @@ int key_hook(int keycode, t_data *data)
         exit(0);
     else if (keycode == 122) // Z
     {
+        // data->px += pdx;
+        // data->py += pdy;
         ft_erase(data, data->px, data->py);
-        ft_draw(data, data->px, data->py -= 5);
-        mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, data->px,data->py);
+        ft_minimap(data);
+        ft_draw(data, data->px+=pdx, data->py+=pdy);
     }
     else if (keycode == 113) // Q
     {
+        // pa -= 0.1;
+        // if (pa < 0)
+        //     pa +=2*PI;
+        // pdx = cos(pa) *5;
+        // pdy = sin(pa)*5;
         ft_erase(data, data->px, data->py);
-        ft_draw(data, data->px -= 5, data->py);
-        mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, data->px,data->py);
+        ft_minimap(data);
+        ft_draw(data, data->px -= pdx - pdy, data->py -= pdy);
     }
     else if (keycode == 115) // S
     {
         ft_erase(data, data->px, data->py);
-        ft_draw(data, data->px, data->py += 5);
-        mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, data->px,data->py);
+        ft_minimap(data);
+        ft_draw(data, data->px -= pdx, data->py -= pdy);
     }
     else if (keycode == 100) // D
     {
         ft_erase(data, data->px, data->py);
-        ft_draw(data, data->px += 5, data->py);
-        mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, data->px,data->py);
+        ft_minimap(data);
+        ft_draw(data, data->px+= +5, data->py);
+    }
+    else if (keycode == 65361) // left
+    {
+        pa -= 0.1;
+        if (pa < 0)
+            pa +=2*PI;
+        pdx = cos(pa) *5;
+        pdy = sin(pa)*5;
+        drawLine(data, pdx, pdy);
+    }
+    else if (keycode == 65363) // right
+    {
+        pa += 0.1;
+        if (pa > 2*PI)
+            pa -=2*PI;
+        pdx = cos(pa) * 5;
+        pdy = sin(pa) * 5;
+        drawLine(data, data->px, data->py);
     }
     return (0);
 }
-
 
 int	main(void)
 {
 	t_data	img;
 	img.mlx = mlx_init();
-    img.px = 50;
-    img.py = 50;
-	img.mlx_win = mlx_new_window(img.mlx, 800, 600, "Hello world!");
-    img.img = mlx_new_image(img.mlx, 800, 600);
-    img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+    img.px = 80;
+    img.py = 80;
+    pdx = cos(pa) *5;
+    pdy = sin(pa) *5;
+
+	img.mlx_win = mlx_new_window(img.mlx, 1200, 800, "cub3d et encore");
+    ft_minimap(&img);
     ft_draw(&img, img.px, img.py);
-    mlx_put_image_to_window(img.mlx, img.mlx_win, img.img, img.px,img.py);
+    drawLine(&img, img.px, img.py);
     mlx_key_hook(img.mlx_win, key_hook, &img);
 	mlx_loop(img.mlx);
     return (0);
