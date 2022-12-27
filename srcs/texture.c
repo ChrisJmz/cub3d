@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/15 11:09:35 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/12/26 16:07:21 by cjimenez         ###   ########.fr       */
+/*   Created: 2022/12/26 17:51:17 by cjimenez          #+#    #+#             */
+/*   Updated: 2022/12/26 18:23:05 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "cub3d.h"
 
-int	ft_strlen(const char *str)
+static int init_textures(t_data *data, int nb_data, int i, int index)
 {
-	int	i;
+    while (data->file[i++] && nb_data < 6)
+    {
+        index = 0;
+        data->line = data->file[i];
+        if (ft_strncmp(&data->))
+    }
+}
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+int check_texture(t_data *data)
+{
+    int nb_data;
+    int fd;
+    
+    nb_data = 0;
+    data->bmap = init_textures(data, nb_data, -1, 0);
 }

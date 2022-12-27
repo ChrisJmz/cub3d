@@ -6,7 +6,7 @@
 #    By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/11 11:10:56 by cmsjus            #+#    #+#              #
-#    Updated: 2022/02/21 18:00:41 by cjimenez         ###   ########.fr        #
+#    Updated: 2022/12/27 21:07:11 by cjimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,9 @@ SRCS =	ft_atoi.c 				\
 		ft_printf_s.c			\
 		ft_printf_d.c			\
 		ft_params.c				\
+		ft_strncmp.c			\
+		ft_strlcpy.c			\
+		ft_substr.c				\
 
 OBJS = $(SRCS:.c=.o)
 

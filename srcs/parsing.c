@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/15 11:09:35 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/12/26 16:07:21 by cjimenez         ###   ########.fr       */
+/*   Created: 2022/12/26 15:38:28 by cjimenez          #+#    #+#             */
+/*   Updated: 2022/12/27 22:58:23 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "cub3d.h"
 
-int	ft_strlen(const char *str)
+int check_content(char **map, int i, int j)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+    while (map[i])
+    {
+        j = 0;
+        while (map[i][j])
+        {
+            if (map[i][j] != '1' && map[i][j] && '0' && map[i][j] != 'P' && map[i][j] != '\n')
+                return (1);
+            j++;
+        }
+        printf("[%s]", *map);
+        i++;
+    }
+    return (0);
 }

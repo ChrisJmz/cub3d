@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/15 11:09:35 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/12/26 16:07:21 by cjimenez         ###   ########.fr       */
+/*   Created: 2022/12/26 15:52:56 by cjimenez          #+#    #+#             */
+/*   Updated: 2022/12/26 15:56:14 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "cub3d.h"
 
-int	ft_strlen(const char *str)
+void allocate_map(t_data *data, char *file, int fd)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+    if (fd < 0)
+    {
+        printf("fd error\n");
+        exit (1);
+    }
+    
 }

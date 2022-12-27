@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/15 11:09:35 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/12/26 16:07:21 by cjimenez         ###   ########.fr       */
+/*   Created: 2022/12/21 20:01:17 by cjimenez          #+#    #+#             */
+/*   Updated: 2022/12/27 22:17:35 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "cub3d.h"
 
-int	ft_strlen(const char *str)
+int main(int ac, char **av)
 {
-	int	i;
+    t_data data;
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+    if (ac == 2)
+    {
+        init_file(&data, av[1]);
+    }
+    else 
+       return (printf("Usage: ./cub3d <map>\n"), 1);
 }
