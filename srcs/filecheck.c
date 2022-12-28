@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 20:06:15 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/12/27 22:40:12 by cjimenez         ###   ########.fr       */
+/*   Updated: 2022/12/28 17:18:23 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,9 @@ int init_file(t_data* data, char *file)
     if (filecheck(file))
         return (printf(".cub file supported only\n"), 1);
     data->map = size_map(file);
+    if (check_texture(data->map, &data->text) == 1)
+        ft_error("Error in texture");
     if (check_content(data->map, 0, 0) == 1)
-    {
-        printf("ici\n");
-        return (1);
-    }
-    printf("c bon\n");
+        ft_error("Error in content");
     return (0);
 }

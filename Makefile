@@ -6,7 +6,7 @@
 #    By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/16 15:42:20 by nguiard           #+#    #+#              #
-#    Updated: 2022/12/27 21:19:01 by cjimenez         ###   ########.fr        #
+#    Updated: 2022/12/28 17:18:32 by cjimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,8 @@ SANITIZE = -g3 -fsanitize=address
 SRC =	srcs/main.c	\
 		srcs/filecheck.c	\
 		srcs/parsing.c		\
+		srcs/texture.c		\
+		srcs/ft_error.c		\
 		
 SRC2D = 2D/test.c	\
 
