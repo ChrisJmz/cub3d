@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 17:51:17 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/12/28 17:25:58 by cjimenez         ###   ########.fr       */
+/*   Updated: 2023/01/04 00:21:14 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,22 @@ void init_null(t_text *text)
     text->ea = 0;
 }
 
+char    *get_colors(char **map, char c)
+{
+    int i;
+    int j;
+    
+    i = 0;
+    j = 0;
+    while (map[i])
+    {
+        if (map[i][j] == c)
+           return (ft_strdup(map[i] + 2));
+        i++; 
+    }
+    return (NULL);
+}
+
 int get_path(char **map, t_text *text, int i)
 {
     if (ft_strncmp(map[i], "NO ", 3) == 0)
@@ -33,9 +49,9 @@ int get_path(char **map, t_text *text, int i)
     else if (ft_strncmp(map[i], "WE ", 3) == 0)
         return (text->we_path = ft_strdup(map[i] + 3), text->we++, 0);
     else if (ft_strncmp(map[i], "F ", 2) == 0)
-        return (text->f++, 0);
+        return (text->f_img = get_colors(map, 'F'),text->f++, 0);
     else if (ft_strncmp(map[i], "C ", 2) == 0)
-        return (text->c++, 0);
+        return (text->c_img = get_colors(map, 'C'),text->c++, 0);
     return (1);
 }
 
@@ -53,7 +69,7 @@ int check_texture(char **map, t_text *text)
             printf("{%s}", map[i]);return (1);}
         i++;
     }
-    if (text->no != 1)
+    if (text->no != 1 || text->so != 1 || text->we != 1 || text->ea != 1 || text->f != 1 || text->c != 1)
         return (1);
     return (0);
     

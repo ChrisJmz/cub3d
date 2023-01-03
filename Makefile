@@ -6,14 +6,12 @@
 #    By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/16 15:42:20 by nguiard           #+#    #+#              #
-#    Updated: 2022/12/28 17:18:32 by cjimenez         ###   ########.fr        #
+#    Updated: 2023/01/04 00:18:46 by cjimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 NAME2D = cub2d
-
-LIBFT = libft/libft.a
 
 FLAGS = -Werror -Wextra -Wall -I/usr/include -Imlx_linux 
 SANITIZE = -g3 -fsanitize=address

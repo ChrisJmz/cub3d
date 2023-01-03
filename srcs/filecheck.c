@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 20:06:15 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/12/28 17:18:23 by cjimenez         ###   ########.fr       */
+/*   Updated: 2023/01/04 00:12:24 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,12 @@ int init_file(t_data* data, char *file)
     data->map = size_map(file);
     if (check_texture(data->map, &data->text) == 1)
         ft_error("Error in texture");
+    printf("\nNO path: %s\n", data->text.no_path);
+    printf("SO path: %s\n", data->text.so_path);
+    printf("EA path: %s\n", data->text.ea_path);
+    printf("WE path: %s\n", data->text.we_path);
+    printf("F path: %s\n", data->text.f_img);
+    printf("c path: %s\n", data->text.c_img);
     if (check_content(data->map, 0, 0) == 1)
         ft_error("Error in content");
     return (0);
