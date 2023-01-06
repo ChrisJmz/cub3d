@@ -6,11 +6,25 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 20:06:15 by cjimenez          #+#    #+#             */
-/*   Updated: 2023/01/04 00:12:24 by cjimenez         ###   ########.fr       */
+/*   Updated: 2023/01/06 18:02:29 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int check_line(char *line)
+{
+    int i;
+
+    i = 0;
+    while(line[i] && i < ft_strlen(line) - 2)
+    {
+        if (line[i] != '1' && line[i] != ' ')
+            return (1);
+        i++;
+    }
+    return (0);
+}
 
 int count_line(char *file)
 {
@@ -62,9 +76,6 @@ char **size_map(char *file)
         i++;
     }
     map[i] = '\0';
-    int j = -1;
-    while (map[++j])
-        printf("%s", map[j]);
     close (fd);
     return (map);
 }
@@ -76,12 +87,11 @@ int init_file(t_data* data, char *file)
     data->map = size_map(file);
     if (check_texture(data->map, &data->text) == 1)
         ft_error("Error in texture");
-    printf("\nNO path: %s\n", data->text.no_path);
-    printf("SO path: %s\n", data->text.so_path);
-    printf("EA path: %s\n", data->text.ea_path);
-    printf("WE path: %s\n", data->text.we_path);
-    printf("F path: %s\n", data->text.f_img);
-    printf("c path: %s\n", data->text.c_img);
+    data->map = remap(data->map);
+    if (check_first_and_last(data->map, 0, 0) == 1)
+        ft_error("Error in first or last line");
+    if (check_in(data->map, 0, 0) == 1)
+        ft_error("Error inside");
     if (check_content(data->map, 0, 0) == 1)
         ft_error("Error in content");
     return (0);

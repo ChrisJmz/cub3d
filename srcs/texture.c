@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 17:51:17 by cjimenez          #+#    #+#             */
-/*   Updated: 2023/01/04 00:21:14 by cjimenez         ###   ########.fr       */
+/*   Updated: 2023/01/06 15:44:08 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ int check_texture(char **map, t_text *text)
     {
         if (get_path(map, text, i) == 0)
             ;
-        else if (ft_strncmp(map[i], "1", 1) != 0 && ft_strncmp(map[i], "0", 1) != 0 && ft_strncmp(map[i], "\n", 1) != 0 && ft_strncmp(map[i], " ", 1) != 0){
-            printf("{%s}", map[i]);return (1);}
+        else if (ft_strncmp(map[i], "1", 1) != 0 && ft_strncmp(map[i], "0", 1) != 0 && ft_strncmp(map[i], "\n", 1) != 0 && ft_strncmp(map[i], " ", 1) != 0)
+            return (1);
         i++;
     }
     if (text->no != 1 || text->so != 1 || text->we != 1 || text->ea != 1 || text->f != 1 || text->c != 1)

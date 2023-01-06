@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 19:50:58 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/12/28 17:17:42 by cjimenez         ###   ########.fr       */
+/*   Updated: 2023/01/06 18:02:01 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,11 @@ int init_file(t_data *data, char *file);
 int check_content(char **map, int i, int j);
 int check_texture(char **map, t_text *text);
 void    ft_error(char *msg);
+int ft_strlenn(char *str);
+int check_line(char *line);
+int ft_strstrlen(char   **str);
+char    **remap(char **map);
+int check_first_and_last(char **map, int j, int i);
+int check_in(char **map, int i, int j);
 
 #endif

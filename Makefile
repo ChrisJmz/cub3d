@@ -6,7 +6,7 @@
 #    By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/16 15:42:20 by nguiard           #+#    #+#              #
-#    Updated: 2023/01/04 00:18:46 by cjimenez         ###   ########.fr        #
+#    Updated: 2023/01/06 15:39:06 by cjimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,8 @@ SRC =	srcs/main.c	\
 		srcs/parsing.c		\
 		srcs/texture.c		\
 		srcs/ft_error.c		\
+		srcs/utils.c		\
+		srcs/remap.c		\
 		
 SRC2D = 2D/test.c	\
 
