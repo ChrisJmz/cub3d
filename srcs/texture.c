@@ -6,11 +6,23 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 17:51:17 by cjimenez          #+#    #+#             */
-/*   Updated: 2023/01/06 15:44:08 by cjimenez         ###   ########.fr       */
+/*   Updated: 2023/01/11 16:21:39 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void textpath(t_data *data)
+{
+    data->text.no_path = ft_substr(data->text.no_path, 0,
+                    ft_strlen(data->text.no_path) -1);
+    data->text.so_path = ft_substr(data->text.so_path, 0,
+                    ft_strlen(data->text.so_path) -1);
+    data->text.we_path = ft_substr(data->text.we_path, 0,
+                    ft_strlen(data->text.we_path) -1);
+    data->text.ea_path = ft_substr(data->text.ea_path, 0,
+                    ft_strlen(data->text.ea_path) -1);                                
+}
 
 void init_null(t_text *text)
 {
@@ -49,9 +61,9 @@ int get_path(char **map, t_text *text, int i)
     else if (ft_strncmp(map[i], "WE ", 3) == 0)
         return (text->we_path = ft_strdup(map[i] + 3), text->we++, 0);
     else if (ft_strncmp(map[i], "F ", 2) == 0)
-        return (text->f_img = get_colors(map, 'F'),text->f++, 0);
+        return (text->f_path = get_colors(map, 'F'),text->f++, 0);
     else if (ft_strncmp(map[i], "C ", 2) == 0)
-        return (text->c_img = get_colors(map, 'C'),text->c++, 0);
+        return (text->c_path = get_colors(map, 'C'),text->c++, 0);
     return (1);
 }
 

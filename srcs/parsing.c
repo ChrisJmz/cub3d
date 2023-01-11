@@ -6,11 +6,38 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 15:38:28 by cjimenez          #+#    #+#             */
-/*   Updated: 2023/01/06 18:33:20 by cjimenez         ###   ########.fr       */
+/*   Updated: 2023/01/11 16:02:41 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int check_walls(char **map, int j, int i)
+{
+    while (map[j])
+    {
+        while (map[j][i] && i <= ft_strlenn(map[j]))
+        {
+            if (map[j][i] == '0' && i > ft_strlenn(map[j - 1]))
+                return (1);
+            else if (map[j][i] == '0' && i > ft_strlenn(map[j + 1]))
+                return (1);
+            else if (map[j][i] == '0' && checkzero(map[j][i], map[j - 1][i]))
+                return (1);
+            else if (map[j][i] == '0' && checkzero(map[j][i], map[j + 1][i]))
+                return (1);
+            else if (map[j][i] == '0' && checkzero(map[j][i], map[j][i + 1]))
+                return (1);
+            else if (map[j][i] == '0' && checkzero(map[j][i], map[j][i - 1]))
+                return (1);
+            i++;
+        }
+        i = 0;
+        j++;
+    }
+    return (0);
+}
+
 
 int check_player(char **map, int i, int j)
 {

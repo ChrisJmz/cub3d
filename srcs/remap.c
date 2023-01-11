@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 15:32:49 by cjimenez          #+#    #+#             */
-/*   Updated: 2023/01/06 15:40:34 by cjimenez         ###   ########.fr       */
+/*   Updated: 2023/01/08 14:08:39 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char    **alloc_map(char **map, int i)
     while (size < fsize - i - 1)
     {
         new[size] = ft_strdup(map[i + size + 1]);
-        printf("%s", new[size]);
+        // printf("%s", new[size]);
         size++;
 
     }
