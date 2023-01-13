@@ -6,7 +6,7 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 13:52:00 by skhali            #+#    #+#             */
-/*   Updated: 2023/01/13 19:56:38 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/13 20:01:45 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void	raycasting_init(t_game *window, int x)
 //on l'incremente ensuite au fur et à mesure en commencat par mapx pus mapy
 //qui reprensente le carré sur lequel on est 
 //pour avoir la pente d'un  vecteur, je multiplie par le coefficient directeur delta (la pente)
-
 void	get_firstdist(t_game *window)
 {
 	if (window->rayDirx < 0)
