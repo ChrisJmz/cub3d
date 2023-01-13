@@ -6,7 +6,7 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 13:52:00 by skhali            #+#    #+#             */
-/*   Updated: 2023/01/13 19:56:38 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/13 20:28:53 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	raycasting_init(t_game *window, int x)
 	window->camerax = 2 * x / (double)screenWidth - 1;
 	window->rayDirx = window->pdx + window->planex * window->camerax;
 	window->rayDiry = window->pdy + window->planey * window->camerax;
-	window->rayPosx = (double)window->px + 0.5 ;
-	window->rayPosy = (double)window->py + 0.5;
+	window->rayPosx = (double)window->px;
+	window->rayPosy = (double)window->py;
 	window->mapx = (int)window->rayPosx;
 	window->mapy = (int)window->rayPosy;
 	if (window->rayDirx == 0)
