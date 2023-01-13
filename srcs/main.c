@@ -3,23 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/21 20:01:17 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/12/27 22:17:35 by cjimenez         ###   ########.fr       */
+/*   Created: 2022/12/29 23:53:16 by skhali            #+#    #+#             */
+/*   Updated: 2023/01/13 14:42:56 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
-int main(int ac, char **av)
+int	main(void)
 {
-    t_data data;
+	t_game	*window;
 
-    if (ac == 2)
-    {
-        init_file(&data, av[1]);
-    }
-    else 
-       return (printf("Usage: ./cub3d <map>\n"), 1);
+	window = malloc(sizeof(t_game));
+	image_init(window);
+	mlx_hook(window->mlx_win, 33, 0, cross, window);
+	mlx_hook(window->mlx_win, KeyPress, KeyPressMask, player_moves, window);
+	mlx_loop_hook(window->mlx, raycasting, window);
+	//mlx_hook(window->mlx_win, 3, 1L << 1, ft_key_release, window);
+	mlx_loop(window->mlx);
+	return (1);
 }

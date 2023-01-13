@@ -1,78 +1,69 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/01/16 15:42:20 by nguiard           #+#    #+#              #
-#    Updated: 2022/12/28 17:18:32 by cjimenez         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+SRCS =	srcs/main.c \
+		srcs/errors.c \
+		srcs/events.c \
+		srcs/init.c \
+		srcs/mouvement.c \
+		srcs/graphics.c \
+		srcs/raycasting.c \
 
-NAME = cub3d
-NAME2D = cub2d
+OBJS =	objs/main.o \
+		objs/errors.o \
+		objs/events.o \
+		objs/init.o \
+		objs/mouvement.o \
+		objs/graphics.o \
+		objs/raycasting.o \
 
-LIBFT = libft/libft.a
-
-FLAGS = -Werror -Wextra -Wall -I/usr/include -Imlx_linux 
-SANITIZE = -g3 -fsanitize=address
-
-SRC =	srcs/main.c	\
-		srcs/filecheck.c	\
-		srcs/parsing.c		\
-		srcs/texture.c		\
-		srcs/ft_error.c		\
-		
-SRC2D = 2D/test.c	\
-
-OBJS = $(SRC:.c=.o)
-OBJS2D = $(SRC2D:.c=.o)
+NAME = cub3D
 
 CC = gcc
 
+INC = include/
+
 RM = rm -rf
 
-INC =   include
+CFLAGS = #-Wall -Werror -Wextra #-g3 -fsanitize=address
 
 MLXFLAGS = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
-LIBFTFLAGS = -L ./libft -lft 
+LIBFLAGS = -L libft -lft
 
-.c.o:
-	$(CC) $(FLAGS) -I$(INC) -c $< -o $(<:.c=.o)
+all : ${NAME}
 
-all: $(NAME)
+objs/%.o : srcs/%.c
+	mkdir -p ./objs
+	$(CC) $(CFLAGS) -I${INC} -c $< -o $@
 
-$(NAME):	$(OBJS)
-	make -C libft
-	make -C mlx_linux
-	$(CC) $(FLAGS) $(OBJS) $(MLXFLAGS) $(LIBFTFLAGS) -o $(NAME)
 
-s: $(OBJS)
-	make -C libft
-	make -C mlx_linux
-	$(CC) $(FLAGS) $(SANITIZE) $(OBJS) $(MLXFLAGS) $(LIBFTFLAGS) -o $(NAME)
+%.o : %.c
+	$(CC) $(CFLAGS) -I${INC} -c $< -o $@
 
-2D: $(NAME2D)
+${NAME} : ${OBJS} $(LIB)
+	make -C ./libft
+	make -C ./mlx_linux
+	$(CC) $(CFLAGS) ${OBJS} -D LINUX ${MLXFLAGS} ${LIBFLAGS} -o ${NAME}
 
-$(NAME2D):	$(OBJS2D)
-	make -C libft
-	make -C mlx_linux
-	$(CC) $(FLAGS) $(OBJS2D) $(MLXFLAGS) $(LIBFTFLAGS) -o $(NAME2D)
+${NAME_BONUS} : ${OBJS_B}
+	make -C ./libft
+	make -C ./mlx_linux
+	$(CC) $(CFLAGS) ${OBJS_B} -D LINUX ${MLXFLAGS} ${LIBFLAGS} -o ${NAME_BONUS}
+
 
 clean:
-	make -C libft clean
-	make -C mlx_linux clean
-	$(RM) $(OBJS)
-	$(RM) $(OBJS2D)
-	
+		$(RM) ${OBJS} $(OBJ_B)
+		$(RM) ./objs
+		make clean -C ./mlx_linux
+		make clean -C ./libft
 
 fclean: clean
-	$(RM) $(LIBFT)
-	$(RM) $(NAME)
-	$(RM) $(NAME2D)
+		$(RM) $(NAME) $(NAME_BONUS)
+		$(RM) ./mlx_linux/libmlx_Linux.a
+		$(RM) ./mlx_linux/libmlx.a
+		$(RM) ./libft/libft.a
 
-re: fclean all
+malloc_test:	$(OBJS) ./libft/libft.a ./mlx_linux/libmlx_Linux.a
+				$(CC) $(CFLAGS) -fsanitize=undefined -rdynamic -o $@ ${OBJS} $(MLXFLAGS) ./libft/libft.a ./mlx_linux/libmlx_Linux.a -L. -lmallocator
 
-.PHONY: all clean fclean re
+re:	fclean all
+
+.PHONY:        all clean fclean re
