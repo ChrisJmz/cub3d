@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 17:51:17 by cjimenez          #+#    #+#             */
-/*   Updated: 2023/01/11 16:21:39 by cjimenez         ###   ########.fr       */
+/*   Updated: 2023/01/12 12:11:19 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,24 @@
 
 void textpath(t_data *data)
 {
-    data->text.no_path = ft_substr(data->text.no_path, 0,
-                    ft_strlen(data->text.no_path) -1);
-    data->text.so_path = ft_substr(data->text.so_path, 0,
-                    ft_strlen(data->text.so_path) -1);
-    data->text.we_path = ft_substr(data->text.we_path, 0,
-                    ft_strlen(data->text.we_path) -1);
-    data->text.ea_path = ft_substr(data->text.ea_path, 0,
-                    ft_strlen(data->text.ea_path) -1);                                
+    data->path.no_path = ft_substr(data->path.no_path, 0,
+                    ft_strlen(data->path.no_path) -1);
+    data->path.so_path = ft_substr(data->path.so_path, 0,
+                    ft_strlen(data->path.so_path) -1);
+    data->path.we_path = ft_substr(data->path.we_path, 0,
+                    ft_strlen(data->path.we_path) -1);
+    data->path.ea_path = ft_substr(data->path.ea_path, 0,
+                    ft_strlen(data->path.ea_path) -1);     
 }
 
-void init_null(t_text *text)
+void init_null(t_path *path)
 {
-    text->c = 0;
-    text->f = 0;
-    text->no = 0;
-    text->so = 0;
-    text->we = 0;
-    text->ea = 0;
+    path->c = 0;
+    path->f = 0;
+    path->no = 0;
+    path->so = 0;
+    path->we = 0;
+    path->ea = 0;
 }
 
 char    *get_colors(char **map, char c)
@@ -50,38 +50,38 @@ char    *get_colors(char **map, char c)
     return (NULL);
 }
 
-int get_path(char **map, t_text *text, int i)
+int get_path(char **map, t_path *path, int i)
 {
     if (ft_strncmp(map[i], "NO ", 3) == 0)
-        return (text->no_path = ft_strdup(map[i] + 3), text->no++, 0);
+        return (path->no_path = ft_strdup(map[i] + 3), path->no++, 0);
     else if (ft_strncmp(map[i], "SO ", 3) == 0)
-        return (text->so_path = ft_strdup(map[i] + 3), text->so++, 0);
+        return (path->so_path = ft_strdup(map[i] + 3), path->so++, 0);
     else if (ft_strncmp(map[i], "EA ", 3) == 0)
-        return (text->ea_path = ft_strdup(map[i] + 3), text->ea++, 0);
+        return (path->ea_path = ft_strdup(map[i] + 3), path->ea++, 0);
     else if (ft_strncmp(map[i], "WE ", 3) == 0)
-        return (text->we_path = ft_strdup(map[i] + 3), text->we++, 0);
+        return (path->we_path = ft_strdup(map[i] + 3), path->we++, 0);
     else if (ft_strncmp(map[i], "F ", 2) == 0)
-        return (text->f_path = get_colors(map, 'F'),text->f++, 0);
+        return (path->f_path = get_colors(map, 'F'),path->f++, 0);
     else if (ft_strncmp(map[i], "C ", 2) == 0)
-        return (text->c_path = get_colors(map, 'C'),text->c++, 0);
+        return (path->c_path = get_colors(map, 'C'),path->c++, 0);
     return (1);
 }
 
-int check_texture(char **map, t_text *text)
+int check_texture(char **map, t_path *path)
 {
     int i;
 
     i = 0;
-    init_null(text);
-    while (map[i] && text->no < 2)
+    init_null(path);
+    while (map[i] && path->no < 2)
     {
-        if (get_path(map, text, i) == 0)
+        if (get_path(map, path, i) == 0)
             ;
         else if (ft_strncmp(map[i], "1", 1) != 0 && ft_strncmp(map[i], "0", 1) != 0 && ft_strncmp(map[i], "\n", 1) != 0 && ft_strncmp(map[i], " ", 1) != 0)
             return (1);
         i++;
     }
-    if (text->no != 1 || text->so != 1 || text->we != 1 || text->ea != 1 || text->f != 1 || text->c != 1)
+    if (path->no != 1 || path->so != 1 || path->we != 1 || path->ea != 1 || path->f != 1 || path->c != 1)
         return (1);
     return (0);
     

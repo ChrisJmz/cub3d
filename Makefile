@@ -6,11 +6,11 @@
 #    By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/16 15:42:20 by nguiard           #+#    #+#              #
-#    Updated: 2023/01/11 16:06:15 by cjimenez         ###   ########.fr        #
+#    Updated: 2023/01/12 12:07:42 by cjimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cub3d
+NAME = cub3D
 NAME2D = cub2d
 
 FLAGS = -Werror -Wextra -Wall -I/usr/include -Imlx_linux 
@@ -24,6 +24,7 @@ SRC =	srcs/main.c	\
 		srcs/utils.c		\
 		srcs/remap.c		\
 		srcs/init.c			\
+		srcs/init_texture.c	\
 		
 SRC2D = 2D/test.c	\
 

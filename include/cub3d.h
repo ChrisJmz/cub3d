@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 19:50:58 by cjimenez          #+#    #+#             */
-/*   Updated: 2023/01/11 16:21:57 by cjimenez         ###   ########.fr       */
+/*   Updated: 2023/01/12 12:13:19 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 #define WWIDTH 1200
 #define WHEIGHT 600
 
-typedef struct s_text
+typedef struct s_path
 {
 	int		f;
 	int		c;
@@ -37,7 +37,9 @@ typedef struct s_text
 	char	*so_path;
 	char	*we_path;
 	char	*ea_path;
-}	t_text;
+}	t_path;
+
+
 
 typedef struct	s_data
 {
@@ -56,7 +58,10 @@ typedef struct	s_data
 	char	**file;
 	int		bmap;
 	char	*line;
-	struct s_text text;
+	struct s_path path;
+	int		win_x;
+	int		win_y;
+	unsigned int	*walls[4];
 
 	void	*texture_we;
 	void	*texture_ea;
@@ -68,7 +73,7 @@ typedef struct	s_data
 int filecheck(char *file);
 int init_file(t_data *data, char *file);
 int check_content(char **map, int i, int j);
-int check_texture(char **map, t_text *text);
+int check_texture(char **map, t_path *path);
 void    ft_error(char *msg);
 int ft_strlenn(char *str);
 int check_line(char *line);
