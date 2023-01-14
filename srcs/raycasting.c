@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 13:52:00 by skhali            #+#    #+#             */
-/*   Updated: 2023/01/14 02:58:15 by cjimenez         ###   ########.fr       */
+/*   Updated: 2023/01/14 17:01:54 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void	get_dist(t_game *window)
 {
 	window->hit = 0;
 	window->perpwalldist = 0;
+
 	while (window->hit == 0)
 	{
 		if (window->sideDistx < window->sideDisty)
@@ -128,9 +129,11 @@ void	get_dist(t_game *window)
 			window->mapy += window->stepy;
 			window->side = 1;
 		}
-		if (Map2[window->mapx][window->mapy] == 1)
+		if (window->map[window->mapy][window->mapx] == '1')
 			window->hit = 1;
+		// if (Map2[window->mapx][window->mapy] == 1)
 	}
+	
 	if (window->side == 0)
 		window->perpwalldist = (((double)window->mapx - window->rayPosx
 					+ (1 - (double)window->stepx) / 2) / window->rayDirx);

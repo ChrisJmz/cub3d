@@ -36,10 +36,17 @@ int	player_moves(int key, t_game *window)
 {
 	if (key == UP)
 	{
-		if (Map3[(int)(window->rayPosx + window->rayDirx * window->speed)][(int)window->rayPosy] == 0)
-			window->rayPosx += window->rayDirx * window->speed;
-		if (Map3[(int)window->rayPosx][(int)(window->rayPosy + window->rayDiry * window->speed)] == 0)
-			window->rayPosy += window->rayDiry * window->speed;
+    printf("key\n");
+		if (window->map[(int)(window->rayPosx + window->rayDirx * window->speed)][(int)window->rayPosy] == 0)
+		{
+      printf("lol\n");  
+      window->rayPosx += window->rayDirx * window->speed;
+    }	
+		if (window->map[(int)window->rayPosx][(int)(window->rayPosy + window->rayDiry * window->speed)] == 0)
+		{
+      printf("test\n");
+      window->rayPosy += window->rayDiry * window->speed;
+    }	
 	}
 	return (0);
 }

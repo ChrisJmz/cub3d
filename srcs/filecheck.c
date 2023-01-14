@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 20:06:15 by cjimenez          #+#    #+#             */
-/*   Updated: 2023/01/14 02:33:24 by cjimenez         ###   ########.fr       */
+/*   Updated: 2023/01/14 16:47:27 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ int init_file(t_game* data, char *file)
         ft_error("Error in first or last line");
     if (check_in(data->map, 0, 0) == 1)
         ft_error("Error inside");
-    // if (check_content(data->map, 0, 0) == 1)
-    //     ft_error("Error in content");
+    if (check_content(data->map, 0, 0) == 1)
+        ft_error("Error in content");
     if (check_walls(data->map, 1, 0) == 1)
         ft_error("Error with walls");
     return (0);
