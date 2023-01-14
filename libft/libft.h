@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:07:57 by cmsjus            #+#    #+#             */
-/*   Updated: 2022/12/27 21:13:53 by cjimenez         ###   ########.fr       */
+/*   Updated: 2023/01/14 02:33:38 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_putchar(char c);
 void	ft_putstr(const char *str);
 char	**ft_split(char const *s, char c);
 char	*ft_strdup(const char *s1);
-int     ft_strlen(const char *s);
+int		ft_strlen(const char *s);
 char	*ft_strncpy(char *str, int nb);
 char	*get_next_line(int fd);
 char	*get_next_line2(char *str);
@@ -51,5 +51,7 @@ int		ft_params(char flag, va_list arg);
 size_t  ft_strlcpy(char *dest, const char *src, size_t dstsize);
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
+void	ft_putstr_fd(char *s, int fd);
+void	*ft_memset(void *b, int c, size_t len);
 
 #endif

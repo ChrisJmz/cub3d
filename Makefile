@@ -6,7 +6,7 @@
 #    By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/16 15:42:20 by nguiard           #+#    #+#              #
-#    Updated: 2023/01/12 12:07:42 by cjimenez         ###   ########.fr        #
+#    Updated: 2023/01/14 02:02:34 by cjimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,11 @@ SRC =	srcs/main.c	\
 		srcs/remap.c		\
 		srcs/init.c			\
 		srcs/init_texture.c	\
+		srcs/errors.c		\
+		srcs/events.c		\
+		srcs/graphics.c		\
+		srcs/mouvement.c	\
+		srcs/raycasting.c	\
 		
 SRC2D = 2D/test.c	\
 

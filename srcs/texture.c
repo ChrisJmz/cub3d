@@ -6,13 +6,13 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 17:51:17 by cjimenez          #+#    #+#             */
-/*   Updated: 2023/01/12 12:11:19 by cjimenez         ###   ########.fr       */
+/*   Updated: 2023/01/14 01:56:25 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void textpath(t_data *data)
+void textpath(t_game *data)
 {
     data->path.no_path = ft_substr(data->path.no_path, 0,
                     ft_strlen(data->path.no_path) -1);

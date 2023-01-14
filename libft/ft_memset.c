@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_texture.c                                     :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/12 12:07:46 by cjimenez          #+#    #+#             */
-/*   Updated: 2023/01/14 01:52:49 by cjimenez         ###   ########.fr       */
+/*   Created: 2023/01/14 02:29:43 by cjimenez          #+#    #+#             */
+/*   Updated: 2023/01/14 02:29:53 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-// void    init_texture(t_data *data)
-// {
-//     text->
-// }
+void	*ft_memset(void *b, int c, size_t len)
+{
+	char	*str;
+
+	str = b;
+	while (len)
+	{
+		*str = (unsigned char)c;
+		str++;
+		len--;
+	}
+	return (b);
+}

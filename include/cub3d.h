@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 19:50:58 by cjimenez          #+#    #+#             */
-/*   Updated: 2023/01/12 12:13:19 by cjimenez         ###   ########.fr       */
+/*   Updated: 2023/01/14 02:28:43 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,24 @@
 #include <math.h>
 #include "../libft/libft.h"
 #include "../mlx_linux/mlx.h"
-#define PI 3.1415926535
-#define WWIDTH 1200
-#define WHEIGHT 600
+
+# define UP 122
+# define DOWN 115
+# define LEFT 113
+# define RIGHT 100
+# define ESC 65307
+
+#define ROTATE_LEFT 65361
+#define ROTATE_RIGHT 65363
+
+#define mapWidth 24
+#define mapHeight 24
+#define screenWidth 1200	
+#define screenHeight 600
+#define cubeWidth screenWidth/24
+#define cubeHeight  screenHeight/24
+#define ANGLE 0.60
+#define PI 3.1414926535
 
 typedef struct s_path
 {
@@ -39,19 +54,28 @@ typedef struct s_path
 	char	*ea_path;
 }	t_path;
 
-
-
-typedef struct	s_data
+typedef struct	s_game
 {
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-    void	*ptr;
-	void	*win;
+    void	*mlx;
+	void	*mlx_win;
+	void	*mlx_image;
+	
+	int		*addr;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+	
+    int   px;
+    int   py;
+
+	double			pdx;
+	double			pdy;
+	double			pa;
+	
+	double			planex;
+	double			planey;
+	
     void    *player;
-    float   px;
-    float   py;
 	char	**map;
 	int		col;
 	int		row;
@@ -67,23 +91,83 @@ typedef struct	s_data
 	void	*texture_ea;
 	void	*texture_no;
 	void	*texture_so;
-	
-}	t_data;
+
+
+	double			camerax;
+	double		rayPosx;
+	double		rayPosy;
+	double			rayDirx;
+	double			rayDiry;
+	//Valeurs pour la DDA
+	//sur quelle case est la caméra
+	int			mapx;
+	int			mapy;
+	//longueur du rayon
+	double		sideDistx;
+	double		sideDisty;
+	//longueur du rayon entre chaque intersection
+	double			deltadistx;
+	double			deltadisty;
+	//direction du vecteur sur x et y 
+	int			stepx;
+	int			stepy;
+
+	int			hit;
+	int			side;
+	double			perpwalldist;
+
+	int			lineheight;
+	int			drawstart;
+	int			drawend;
+
+	int			forward;
+	int			back;
+	int			left;
+	int			right;
+	int			rotate_left;
+	int			rotate_right;
+
+	int			speed;
+}	t_game;
 
 int filecheck(char *file);
-int init_file(t_data *data, char *file);
+int init_file(t_game *data, char *file);
 int check_content(char **map, int i, int j);
 int check_texture(char **map, t_path *path);
 void    ft_error(char *msg);
 int ft_strlenn(char *str);
 int check_line(char *line);
-void textpath(t_data *data);
+void textpath(t_game *data);
 int ft_strstrlen(char   **str);
 char    **remap(char **map);
 int check_first_and_last(char **map, int j, int i);
 int check_in(char **map, int i, int j);
 int check_walls(char **map, int j, int i);
 int checkzero(char a, char b);
-void	init_mlx(t_data *data);
+void	init_mlx(t_game *data);
+char check_direction(char **map);
+int	ft_get_col(char **map);
 
+int	player_moves(int key, t_game *window);
+//error handlers
+
+int	simple_error_handler(char *str, t_game *map);
+
+//events
+
+int	cross(t_game *game);
+int	player_moves(int keycode, t_game *window);
+
+//display graphics
+
+void    put_pixel_to_image(t_game *window, int color, int x, int y );
+void	draw_player(int px, int py, t_game *window, int color, int width, int height);
+void	draw_map(t_game *window);
+
+//init values
+void init_direction(t_game *w, char direction);
+void init_plane(t_game *w, char direction);
+int image_init(t_game *window);
+
+int raycasting(t_game *window);
 #endif

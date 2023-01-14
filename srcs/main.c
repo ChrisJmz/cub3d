@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 20:01:17 by cjimenez          #+#    #+#             */
-/*   Updated: 2023/01/12 12:11:57 by cjimenez         ###   ########.fr       */
+/*   Updated: 2023/01/14 02:52:30 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,25 @@
 
 int main(int ac, char **av)
 {
-    t_data data;
-    int i =0;
+    t_game *window;
+    int i = -1;
 
+    window = malloc(sizeof(t_game));
     if (ac == 2)
     {
-        init_file(&data, av[1]);
-        while(data.map[i])
-            printf("%s", data.map[i++]);
-        init_mlx(&data);
-        
-        printf("\nnorth : [%s]\n", data.path.no_path);
-        printf("south : [%s]\n", data.path.so_path);
-        printf("west : [%s]\n", data.path.we_path);
-        printf("east : [%s]\n", data.path.ea_path);
+        init_file(*&window, av[1]);
+        while(window->map[++i])
+            printf("%s", window->map[i]);
+        image_init(window);
+        mlx_hook(window->mlx_win, 33, 0, cross, window);
+        // mlx_hook(window->mlx_win, KeyPress, KeyPressMask, player_moves, window);
+        mlx_loop_hook(window->mlx, raycasting, window);
+        //mlx_hook(window->mlx_win, 3, 1L << 1, ft_key_release, window);
+        printf("\nnorth path found: [%s]\n", window->path.no_path);
+        printf("south path found: [%s]\n", window->path.so_path);
+        printf("west path found: [%s]\n", window->path.we_path);
+        printf("east path found: [%s]\n", window->path.ea_path);
+        mlx_loop(window->mlx);
     }
     else 
        return (printf("Usage: ./cub3d <map>\n"), 1);
