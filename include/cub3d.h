@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 19:50:58 by cjimenez          #+#    #+#             */
-/*   Updated: 2023/01/14 02:28:43 by cjimenez         ###   ########.fr       */
+/*   Updated: 2023/01/15 21:03:19 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
-#include <GL/glut.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
@@ -53,6 +52,15 @@ typedef struct s_path
 	char	*we_path;
 	char	*ea_path;
 }	t_path;
+
+typedef struct s_input{
+	int			forward;
+	int			back;
+	int			left;
+	int			right;
+	int			rotate_left;
+	int			rotate_right;
+}	t_input;
 
 typedef struct	s_game
 {
@@ -112,22 +120,24 @@ typedef struct	s_game
 	int			stepx;
 	int			stepy;
 
-	int			hit;
-	int			side;
-	double			perpwalldist;
+	int		hit;
+	int		side;
+	double	perpwalldist;
 
-	int			lineheight;
-	int			drawstart;
-	int			drawend;
+	int		lineheight;
+	int		drawstart;
+	int		drawend;
 
-	int			forward;
-	int			back;
-	int			left;
-	int			right;
-	int			rotate_left;
-	int			rotate_right;
+	double	speed;
+	double	rot;
+	int		move;
+	double	strafel;
+	double	strafer;
 
-	int			speed;
+	double	cos;
+	double	sin;
+
+	t_input	*input;
 }	t_game;
 
 int filecheck(char *file);
@@ -148,10 +158,12 @@ void	init_mlx(t_game *data);
 char check_direction(char **map);
 int	ft_get_col(char **map);
 
+
 int	player_moves(int key, t_game *window);
 //error handlers
 
 int	simple_error_handler(char *str, t_game *map);
+void	exit_error_handler(char *str, t_game *map);
 
 //events
 
@@ -170,4 +182,9 @@ void init_plane(t_game *w, char direction);
 int image_init(t_game *window);
 
 int raycasting(t_game *window);
+int		ft_key_press(int keycode, t_game *recup);
+int		ft_key_release(int keycode, t_game *recup);
+void	raycasting_init(t_game *window, int x);
+void	rotate_moves(t_game *w);
+void	simple_moves(t_game *w);
 #endif

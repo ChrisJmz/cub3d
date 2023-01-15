@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 20:01:17 by cjimenez          #+#    #+#             */
-/*   Updated: 2023/01/14 16:55:08 by cjimenez         ###   ########.fr       */
+/*   Updated: 2023/01/15 20:58:36 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ int main(int ac, char **av)
         // while(window->map[++i])
         //     printf("%s", window->map[i]);
         image_init(window);
-        mlx_hook(window->mlx_win, 33, 0, cross, window);
-        mlx_hook(window->mlx_win, 02, 1L<<0, player_moves, window);
-        mlx_loop_hook(window->mlx, raycasting, window);
+	mlx_hook(window->mlx_win, 33, 0, cross, window);
+	mlx_hook(window->mlx_win, 2, 3, ft_key_press, window);
+	mlx_loop_hook(window->mlx, raycasting, window);
+	mlx_hook(window->mlx_win, 3, 3, ft_key_release, window);
         //mlx_hook(window->mlx_win, 3, 1L << 1, ft_key_release, window);
         // printf("\nnorth path found: [%s]\n", window->path.no_path);
         // printf("south path found: [%s]\n", window->path.so_path);
