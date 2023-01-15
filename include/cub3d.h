@@ -6,18 +6,18 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 19:50:58 by cjimenez          #+#    #+#             */
-/*   Updated: 2023/01/15 21:03:19 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/16 00:46:36 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <math.h>
-#include "../libft/libft.h"
-#include "../mlx_linux/mlx.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <math.h>
+# include "../libft/libft.h"
+# include "../mlx_linux/mlx.h"
 
 # define UP 122
 # define DOWN 115
@@ -25,17 +25,13 @@
 # define RIGHT 100
 # define ESC 65307
 
-#define ROTATE_LEFT 65361
-#define ROTATE_RIGHT 65363
+# define ROTATE_LEFT 65361
+# define ROTATE_RIGHT 65363
 
-#define mapWidth 24
-#define mapHeight 24
-#define screenWidth 1200	
-#define screenHeight 600
-#define cubeWidth screenWidth/24
-#define cubeHeight  screenHeight/24
-#define ANGLE 0.60
-#define PI 3.1414926535
+# define screenWidth 1200	
+# define screenHeight 600
+# define ANGLE 0.60
+# define PI 3.1414926535
 
 typedef struct s_path
 {
@@ -62,26 +58,27 @@ typedef struct s_input{
 	int			rotate_right;
 }	t_input;
 
-typedef struct	s_game
+typedef struct s_game
 {
-    void	*mlx;
+	void	*mlx;
 	void	*mlx_win;
 	void	*mlx_image;
-	
-	int		*addr;
-	int			bits_per_pixel;
-	int			line_length;
-	int			endian;
-	
-    int   px;
-    int   py;
 
-	double			pdx;
-	double			pdy;
-	double			pa;
-	
-	double			planex;
-	double			planey;
+	int		*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+
+	double	px;
+	double	py;
+	char	type;
+
+	double	pdx;
+	double	pdy;
+	double	pa;
+
+	double	planex;
+	double	planey;
 	
     void    *player;
 	char	**map;
@@ -155,33 +152,32 @@ int check_in(char **map, int i, int j);
 int check_walls(char **map, int j, int i);
 int checkzero(char a, char b);
 void	init_mlx(t_game *data);
-char check_direction(char **map);
-int	ft_get_col(char **map);
+
+void	check_direction(char **map, t_game *w);
+int		ft_get_col(char **map);
 
 
-int	player_moves(int key, t_game *window);
 //error handlers
 
-int	simple_error_handler(char *str, t_game *map);
+int		simple_error_handler(char *str, t_game *map);
 void	exit_error_handler(char *str, t_game *map);
 
 //events
 
-int	cross(t_game *game);
-int	player_moves(int keycode, t_game *window);
+int		cross(t_game *game);
+int		player_moves(int keycode, t_game *window);
 
 //display graphics
 
-void    put_pixel_to_image(t_game *window, int color, int x, int y );
-void	draw_player(int px, int py, t_game *window, int color, int width, int height);
+void	put_pixel_to_image(t_game *window, int color, int x, int y );
 void	draw_map(t_game *window);
 
 //init values
-void init_direction(t_game *w, char direction);
-void init_plane(t_game *w, char direction);
-int image_init(t_game *window);
+void	init_direction(t_game *w, char direction);
+void	init_plane(t_game *w, char direction);
+int		image_init(t_game *window);
 
-int raycasting(t_game *window);
+int		raycasting(t_game *window);
 int		ft_key_press(int keycode, t_game *recup);
 int		ft_key_release(int keycode, t_game *recup);
 void	raycasting_init(t_game *window, int x);

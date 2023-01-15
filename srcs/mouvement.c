@@ -1,33 +1,16 @@
-#include "../include/cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mouvement.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/15 22:41:27 by skhali            #+#    #+#             */
+/*   Updated: 2023/01/16 00:50:15 by skhali           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-# define PI_DIV_16		0.125663706
-int Map3[mapWidth][mapHeight]=
-{
-  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,1,0,1,0,1,0,0,0,1},
-  {1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,1},
-  {1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,1,1,0,1,1,0,0,0,0,1,0,1,0,1,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-};
+#include "../include/cub3d.h"
 
 int	ft_key_press(int keycode, t_game *w)
 {
@@ -63,9 +46,9 @@ int	ft_key_release(int keycode, t_game *w)
 	return (1);
 }
 
-int	check_wall(int x, int y)
+int	check_wall(int x, int y, t_game *window)
 {
-	if (Map3[x][y] == 0)
+	if (window->map[x][y] != '1')
 		return (1);
 	else
 		return (0);
@@ -75,30 +58,30 @@ void	simple_moves(t_game *w)
 {
 	if (w->input->forward == 1)
 	{
-		if (check_wall(w->rayPosx + (w->pdx * w->speed), w->rayPosy))
+		if (check_wall(w->rayPosx + (w->pdx * w->speed), w->rayPosy, w))
 			w->rayPosx += w->pdx * w->speed;
-		if (check_wall(w->rayPosx, w->rayPosy + (w->pdy * w->speed)))
+		if (check_wall(w->rayPosx, w->rayPosy + (w->pdy * w->speed), w))
 			w->rayPosy += w->pdy * w->speed;
 	}
 	if (w->input->back == 1)
 	{
-		if (check_wall(w->rayPosx - w->pdx * (w->speed), w->rayPosy))
+		if (check_wall(w->rayPosx - w->pdx * (w->speed), w->rayPosy, w))
 			w->rayPosx -= w->pdx * w->speed;
-		if (check_wall(w->rayPosx, w->rayPosy - w->pdy * (w->speed)))
+		if (check_wall(w->rayPosx, w->rayPosy - w->pdy * (w->speed), w))
 			w->rayPosy -= w->pdy * w->speed;
 	}
 	if (w->input->left == 1)
 	{
-		if (check_wall(w->rayPosx - w->pdy * (w->speed), w->rayPosy))
+		if (check_wall(w->rayPosx - w->pdy * (w->speed), w->rayPosy, w))
 			w->rayPosx -= w->pdy * w->speed;
-		if (check_wall(w->rayPosx, w->rayPosy + w->pdx * (w->speed)))
+		if (check_wall(w->rayPosx, w->rayPosy + w->pdx * (w->speed), w))
 			w->rayPosy += w->pdx * w->speed;
 	}
 	if (w->input->right == 1)
 	{
-		if (check_wall(w->rayPosx + w->pdy * (w->speed), w->rayPosy))
+		if (check_wall(w->rayPosx + w->pdy * (w->speed), w->rayPosy, w))
 			w->rayPosx += w->pdy * w->speed;
-		if (check_wall(w->rayPosx, w->rayPosy - w->pdx * (w->speed)))
+		if (check_wall(w->rayPosx, w->rayPosy - w->pdx * (w->speed), w))
 			w->rayPosy -= w->pdx * w->speed;
 	}
 }

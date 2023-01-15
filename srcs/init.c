@@ -6,7 +6,7 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 13:52:00 by skhali            #+#    #+#             */
-/*   Updated: 2023/01/15 18:39:11 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/16 00:48:14 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,11 @@ void	init_plane(t_game *w, char direction)
 
 void	init_start(t_game *window)
 {
-	window->px = 14.0;
-	window->py = 5.0;
+	check_direction(window->map, window);
+	printf("Position : [%f][%f] -> [%c]\n", window->px, window->py, window->type);
+	init_direction(window, window->type);
+	init_plane(window, window->type);
+	window->input = malloc(sizeof(t_input));
 	window->rayPosx = window->px + 0.5;
 	window->rayPosy = window->py + 0.5;
 	window->speed = 0.0666f;
@@ -85,9 +88,6 @@ int	image_init(t_game *window)
 				window));
 	}
 	init_start(window);
-	init_direction(window, 'N');
-	init_plane(window, 'N');
-	window->input = malloc(sizeof(t_input));
 	return (1);
 }
 
