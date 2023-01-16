@@ -6,7 +6,7 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 13:52:00 by skhali            #+#    #+#             */
-/*   Updated: 2023/01/16 00:48:14 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/16 01:04:49 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void	init_plane(t_game *w, char direction)
 void	init_start(t_game *window)
 {
 	check_direction(window->map, window);
-	printf("Position : [%f][%f] -> [%c]\n", window->px, window->py, window->type);
+	printf("Position : [%f][%f] -> [%c]\n", window->px, window->py,
+		window->type);
 	init_direction(window, window->type);
 	init_plane(window, window->type);
 	window->input = malloc(sizeof(t_input));

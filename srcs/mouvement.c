@@ -6,7 +6,7 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 22:41:27 by skhali            #+#    #+#             */
-/*   Updated: 2023/01/16 01:02:24 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/16 01:18:12 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,27 @@ void	simple_moves(t_game *w)
 		if (check_wall(w->rayPosx, w->rayPosy + w->pdx * (w->speed), w))
 			w->rayPosy += w->pdx * w->speed;
 	}
+}
+
+void	rotate(t_game *w, int sens)
+{
+	double	oldplanx;
+	double	olddirx;
+
+	oldplanx = w->planex;
+	olddirx = w->pdx;
+	w->pdx = w->pdx * cos(sens * w->rot / 2)
+		- w->pdy * sin(sens * w->rot / 2);
+	w->pdy = olddirx * sin(sens * w->rot / 2)
+		+ w->pdy * cos(sens * w->rot / 2);
+	w->planex = w->planex * cos(sens * w->rot / 2)
+		- w->planey * sin(sens * w->rot / 2);
+	w->planey = oldplanx * sin(sens * w->rot / 2)
+		+ w->planey * cos(sens * w->rot / 2);
+}
+
+void	rotate_moves(t_game *w)
+{
 	if (w->input->right == 1)
 	{
 		if (check_wall(w->rayPosx + w->pdy * (w->speed), w->rayPosy, w))
@@ -84,37 +105,8 @@ void	simple_moves(t_game *w)
 		if (check_wall(w->rayPosx, w->rayPosy - w->pdx * (w->speed), w))
 			w->rayPosy -= w->pdx * w->speed;
 	}
-}
-
-void	rotate_moves(t_game *w)
-{
-	double oldplanx;
-	double olddirx;
-
-	oldplanx = w->planex;
-	olddirx = w->pdx;
 	if (w->input->rotate_right == 1)
-	{
-		w->pdx = w->pdx * cos(-w->rot / 2) -
-			w->pdy * sin(-w->rot / 2);
-		w->pdy = olddirx * sin(-w->rot / 2) +
-			w->pdy * cos(-w->rot / 2);
-		w->planex = w->planex * cos(-w->rot / 2)
-			- w->planey * sin(-w->rot / 2);
-		w->planey = oldplanx * sin(-w->rot / 2) +
-			w->planey * cos(-w->rot / 2);
-	}
+		rotate(w, -1);
 	if (w->input->rotate_left == 1)
-	{
-		olddirx = w->pdx;
-		oldplanx = w->planex;
-		w->pdx = w->pdx * cos(w->rot / 2) -
-			w->pdy * sin(w->rot / 2);
-		w->pdy = olddirx * sin(w->rot / 2) + w->
-			pdy * cos(w->rot / 2);
-		w->planex = w->planex * cos(w->rot / 2) -
-			w->planey * sin(w->rot / 2);
-		w->planey = oldplanx * sin(w->rot / 2) +
-			w->planey * cos(w->rot / 2);
-	}
+		rotate(w, 1);
 }
