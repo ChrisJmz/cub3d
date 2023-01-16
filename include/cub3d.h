@@ -6,7 +6,7 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 19:50:58 by cjimenez          #+#    #+#             */
-/*   Updated: 2023/01/16 00:46:36 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/16 01:03:03 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@
 
 # define screenWidth 1200	
 # define screenHeight 600
-# define ANGLE 0.60
-# define PI 3.1414926535
 
 typedef struct s_path
 {
@@ -178,8 +176,8 @@ void	init_plane(t_game *w, char direction);
 int		image_init(t_game *window);
 
 int		raycasting(t_game *window);
-int		ft_key_press(int keycode, t_game *recup);
-int		ft_key_release(int keycode, t_game *recup);
+int		key_press(int keycode, t_game *recup);
+int		key_release(int keycode, t_game *recup);
 void	raycasting_init(t_game *window, int x);
 void	rotate_moves(t_game *w);
 void	simple_moves(t_game *w);

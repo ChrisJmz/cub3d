@@ -3,16 +3,11 @@
 /*                                                        :::      ::::::::   */
 /*   init_texture.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:07:46 by cjimenez          #+#    #+#             */
-/*   Updated: 2023/01/14 01:52:49 by cjimenez         ###   ########.fr       */
+/*   Updated: 2023/01/16 01:01:59 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-// void    init_texture(t_data *data)
-// {
-//     text->
-// }

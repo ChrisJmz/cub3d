@@ -6,13 +6,13 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 22:41:27 by skhali            #+#    #+#             */
-/*   Updated: 2023/01/16 00:50:15 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/16 01:02:24 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	ft_key_press(int keycode, t_game *w)
+int	key_press(int keycode, t_game *w)
 {
 	if (keycode == UP)
 		w->input->forward = 1;
@@ -29,7 +29,7 @@ int	ft_key_press(int keycode, t_game *w)
 	return (1);
 }
 
-int	ft_key_release(int keycode, t_game *w)
+int	key_release(int keycode, t_game *w)
 {
 	if (keycode == UP)
 		w->input->forward = 0;
