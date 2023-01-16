@@ -6,15 +6,15 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 15:30:42 by cjimenez          #+#    #+#             */
-/*   Updated: 2023/01/16 00:41:21 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/16 01:37:36 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int ft_strlenn(char *str)
+int	ft_strlenn(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i] && str[i] != '\n')
@@ -22,9 +22,9 @@ int ft_strlenn(char *str)
 	return (i);
 }
 
-int ft_strstrlen(char   **str)
+int	ft_strstrlen(char **str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -43,7 +43,8 @@ void	check_direction(char **map, t_game *w)
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'W' || map[i][j] == 'E')
+			if (map[i][j] == 'N' || map[i][j] == 'S'
+				|| map[i][j] == 'W' || map[i][j] == 'E')
 			{
 				w->px = (double)i;
 				w->py = (double)j;
@@ -55,7 +56,7 @@ void	check_direction(char **map, t_game *w)
 	}
 }
 
-int checkzero(char a, char b)
+int	checkzero(char a, char b)
 {
 	if (b == 'N' || b == 'W' || b == 'E' || b == 'S')
 		return (0);

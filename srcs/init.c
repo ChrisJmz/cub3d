@@ -6,7 +6,7 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 13:52:00 by skhali            #+#    #+#             */
-/*   Updated: 2023/01/16 01:04:49 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/16 01:44:42 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	image_init(t_game *window)
 	if (!window->mlx)
 		return (simple_error_handler("Error in the initialisation of the mlx.\n",
 				window));
-	window->mlx_win = mlx_new_window(window->mlx, screenWidth, screenHeight,
+	window->mlx_win = mlx_new_window(window->mlx, SCREENWIDTH, SCREENHEIGHT,
 			"Cub3D");
 	if (!window->mlx_win)
 	{
@@ -107,7 +107,7 @@ int	image_init(t_game *window)
 //Pythagore : sqrt(a^2 + b^2) -> a = 1; b = dy/dx
 void	raycasting_init(t_game *window, int x)
 {
-	window->camerax = 2 * x / (double)screenWidth - 1;
+	window->camerax = 2 * x / (double)SCREENWIDTH - 1;
 	window->rayDirx = window->pdx + window->planex * window->camerax;
 	window->rayDiry = window->pdy + window->planey * window->camerax;
 	window->mapx = (int)window->rayPosx;

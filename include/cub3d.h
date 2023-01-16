@@ -6,7 +6,7 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 19:50:58 by cjimenez          #+#    #+#             */
-/*   Updated: 2023/01/16 01:03:03 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/16 01:51:34 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # define ROTATE_LEFT 65361
 # define ROTATE_RIGHT 65363
 
-# define screenWidth 1200	
-# define screenHeight 600
+# define SCREENWIDTH 1200	
+# define SCREENHEIGHT 600
 
 typedef struct s_path
 {
@@ -77,8 +77,8 @@ typedef struct s_game
 
 	double	planex;
 	double	planey;
-	
-    void    *player;
+
+	void	*player;
 	char	**map;
 	int		col;
 	int		row;
@@ -95,25 +95,24 @@ typedef struct s_game
 	void	*texture_no;
 	void	*texture_so;
 
-
-	double			camerax;
-	double		rayPosx;
-	double		rayPosy;
-	double			rayDirx;
-	double			rayDiry;
+	double	camerax;
+	double	rayPosx;
+	double	rayPosy;
+	double	rayDirx;
+	double	rayDiry;
 	//Valeurs pour la DDA
 	//sur quelle case est la caméra
-	int			mapx;
-	int			mapy;
+	int		mapx;
+	int		mapy;
 	//longueur du rayon
-	double		sideDistx;
-	double		sideDisty;
+	double	sideDistx;
+	double	sideDisty;
 	//longueur du rayon entre chaque intersection
-	double			deltadistx;
-	double			deltadisty;
+	double	deltadistx;
+	double	deltadisty;
 	//direction du vecteur sur x et y 
-	int			stepx;
-	int			stepy;
+	int		stepx;
+	int		stepy;
 
 	int		hit;
 	int		side;
@@ -135,50 +134,47 @@ typedef struct s_game
 	t_input	*input;
 }	t_game;
 
-int filecheck(char *file);
-int init_file(t_game *data, char *file);
-int check_content(char **map, int i, int j);
-int check_texture(char **map, t_path *path);
-void    ft_error(char *msg);
-int ft_strlenn(char *str);
-int check_line(char *line);
-void textpath(t_game *data);
-int ft_strstrlen(char   **str);
-char    **remap(char **map);
-int check_first_and_last(char **map, int j, int i);
-int check_in(char **map, int i, int j);
-int check_walls(char **map, int j, int i);
-int checkzero(char a, char b);
-void	init_mlx(t_game *data);
+/* PARSING */
+int		filecheck(char *file);
+int		init_file(t_game *data, char *file);
+int		check_content(char **map, int i, int j);
+int		check_texture(char **map, t_path *path);
+void	ft_error(char *msg);
+int		ft_strlenn(char *str);
+int		check_line(char *line);
+void	textpath(t_game *data);
+int		ft_strstrlen(char **str);
+char	**remap(char **map);
+int		check_first_and_last(char **map, int j, int i);
+int		check_in(char **map, int i, int j);
+int		check_walls(char **map, int j, int i);
+int		checkzero(char a, char b);
 
-void	check_direction(char **map, t_game *w);
-int		ft_get_col(char **map);
-
-
-//error handlers
-
+/* ERROR HANDLERS*/
 int		simple_error_handler(char *str, t_game *map);
 void	exit_error_handler(char *str, t_game *map);
 
-//events
-
+/* MLX EVENTS */
 int		cross(t_game *game);
-int		player_moves(int keycode, t_game *window);
+int		key_press(int keycode, t_game *recup);
+int		key_release(int keycode, t_game *recup);
 
-//display graphics
-
-void	put_pixel_to_image(t_game *window, int color, int x, int y );
-void	draw_map(t_game *window);
-
-//init values
+/*	INITIALISATION */
+void	check_direction(char **map, t_game *w);
 void	init_direction(t_game *w, char direction);
 void	init_plane(t_game *w, char direction);
 int		image_init(t_game *window);
 
+/* RAYCASTING ALGORITHM*/
 int		raycasting(t_game *window);
-int		key_press(int keycode, t_game *recup);
-int		key_release(int keycode, t_game *recup);
 void	raycasting_init(t_game *window, int x);
+
+/* MOVEMENTS*/
 void	rotate_moves(t_game *w);
 void	simple_moves(t_game *w);
+
+//display graphics
+
+void	put_pixel_to_image(t_game *window, int color, int x, int y );
+
 #endif

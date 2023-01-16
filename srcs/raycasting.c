@@ -6,7 +6,7 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 13:52:00 by skhali            #+#    #+#             */
-/*   Updated: 2023/01/16 00:49:08 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/16 01:45:13 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,23 +87,17 @@ static void	draw_game(t_game *window, int x)
 	color = 0x00FF000;
 	if (window->side == 1)
 		color = color / 3;
-	window->lineheight = (int)(screenHeight / window->perpwalldist);
-	window->drawstart = -window->lineheight / 2 + screenHeight / 2;
+	window->lineheight = (int)(SCREENHEIGHT / window->perpwalldist);
+	window->drawstart = -window->lineheight / 2 + SCREENHEIGHT / 2;
 	if (window->drawstart < 0)
 		window->drawstart = 0;
-	window->drawend = window->lineheight / 2 + screenHeight / 2;
-	if (window->drawend >= screenHeight || window->drawend < 0)
-		window->drawend = screenHeight - 1;
-	//int j = -1;
+	window->drawend = window->lineheight / 2 + SCREENHEIGHT / 2;
+	if (window->drawend >= SCREENHEIGHT || window->drawend < 0)
+		window->drawend = SCREENHEIGHT - 1;
 	j = window->drawstart;
-	window->drawend = screenHeight - window->drawstart;
+	window->drawend = SCREENHEIGHT - window->drawstart;
 	while (++j < window->drawend)
 		window->addr[j * window->line_length / 4 + x] = color;
-	/*j = window->drawend;
-	while (++j < screenHeight)
-	{
-		window->addr[ j * window->line_length / 4 + x] = color;
-	}*/
 }
 
 void	raycasting_loop(t_game *window)
@@ -111,7 +105,7 @@ void	raycasting_loop(t_game *window)
 	int	x;
 
 	x = 0;
-	while (x < screenWidth)
+	while (x < SCREENWIDTH)
 	{
 		raycasting_init(window, x);
 		get_firstdist(window);
@@ -125,7 +119,7 @@ int	raycasting(t_game *window)
 {
 	if (window->mlx_image)
 		mlx_destroy_image(window->mlx, window->mlx_image);
-	window->mlx_image = mlx_new_image(window->mlx, screenWidth, screenHeight);
+	window->mlx_image = mlx_new_image(window->mlx, SCREENWIDTH, SCREENHEIGHT);
 	if (!window->mlx_image)
 	{
 		mlx_destroy_window(window->mlx, window->mlx_win);
