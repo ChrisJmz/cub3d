@@ -6,7 +6,7 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 19:50:58 by cjimenez          #+#    #+#             */
-/*   Updated: 2023/01/16 01:51:34 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/17 12:48:44 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,16 @@ typedef struct s_input{
 	int			rotate_right;
 }	t_input;
 
+typedef struct s_texture{
+	void	*image;
+
+	int		width;
+	int		height;
+	int		*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_texture;
 typedef struct s_game
 {
 	void	*mlx;
@@ -90,10 +100,6 @@ typedef struct s_game
 	int		win_y;
 	unsigned int	*walls[4];
 
-	void	*texture_we;
-	void	*texture_ea;
-	void	*texture_no;
-	void	*texture_so;
 
 	double	camerax;
 	double	rayPosx;
@@ -132,6 +138,14 @@ typedef struct s_game
 	double	sin;
 
 	t_input	*input;
+
+	t_texture	*texture_we;
+	t_texture	*texture_ea;
+	t_texture	*texture_no;
+	t_texture	*texture_so;
+
+	double		wallx;
+	double		tex;
 }	t_game;
 
 /* PARSING */
@@ -173,8 +187,7 @@ void	raycasting_init(t_game *window, int x);
 void	rotate_moves(t_game *w);
 void	simple_moves(t_game *w);
 
-//display graphics
-
-void	put_pixel_to_image(t_game *window, int color, int x, int y );
+/* GRAPHICS */
+void	load_images(t_game *w);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 13:52:00 by skhali            #+#    #+#             */
-/*   Updated: 2023/01/16 01:44:42 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/17 12:24:09 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int	image_init(t_game *window)
 		return (simple_error_handler("Error in the creation of the window.\n",
 				window));
 	}
+	load_images(window);
 	init_start(window);
 	return (1);
 }
