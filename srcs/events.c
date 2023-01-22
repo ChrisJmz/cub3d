@@ -6,15 +6,33 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 01:01:44 by skhali            #+#    #+#             */
-/*   Updated: 2023/01/16 01:43:34 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/23 00:24:34 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
+void	free_split(char	**str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+		free(str[i]);
+	free(str);
+}
+
 int	cross(t_game *game)
 {
-	(void)game;
+	destroy_images(game, "");
+	free_split(game->map);
+	free(game->path.c_path);
+	free(game->path.f_path);
+	free(game->path.no_path);
+	free(game->path.so_path);
+	free(game->path.we_path);
+	free(game->path.ea_path);
+	free(game);
 	exit(0);
 	return (0);
 }

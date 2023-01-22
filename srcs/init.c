@@ -6,7 +6,7 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 13:52:00 by skhali            #+#    #+#             */
-/*   Updated: 2023/01/22 21:27:22 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/23 00:01:46 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,23 @@ void	init_plane(t_game *w, char direction)
 	}
 }
 
+void	init_moves(t_game	*w)
+{
+	w->input->forward = 0;
+	w->input->back = 0;
+	w->input->left = 0;
+	w->input->right = 0;
+	w->input->rotate_right = 0;
+	w->input->rotate_left = 0;
+}
+
 void	init_start(t_game *window)
 {
 	check_direction(window->map, window);
 	init_direction(window, window->type);
 	init_plane(window, window->type);
 	window->input = malloc(sizeof(t_input));
+	init_moves(window);
 	window->rayposx = window->px + 0.5;
 	window->rayposy = window->py + 0.5;
 	window->speed = 0.0666f;

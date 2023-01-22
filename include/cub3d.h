@@ -6,7 +6,7 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 19:50:58 by cjimenez          #+#    #+#             */
-/*   Updated: 2023/01/22 21:32:50 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/22 23:53:10 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,6 @@ void	simple_moves(t_game *w);
 void	load_images(t_game *w);
 void	init_image(t_game *w, int mid, int x);
 
-void	ft_draw_texture(t_game *recup, int x, int y);
+void	destroy_images(t_game *image, char *str);
 
 #endif

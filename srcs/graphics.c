@@ -6,7 +6,7 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 01:37:45 by skhali            #+#    #+#             */
-/*   Updated: 2023/01/22 21:38:06 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/23 00:34:16 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,38 +20,24 @@ void	get_addr(t_texture *t)
 
 static void	destroy_images_p1(t_game *image)
 {
-	if (image->mlx)
-	{
-		if (image->texture_ea)
-			if (image->texture_ea->image)
-				mlx_destroy_image(image->mlx, image->texture_ea->image);
-		if (image->texture_we)
-			if (image->texture_we->image)
-				mlx_destroy_image(image->mlx, image->texture_we->image);
-		if (image->texture_no)
-			if (image->texture_no->image)
-				mlx_destroy_image(image->mlx, image->texture_no->image);
-		if (image->texture_so)
-			if (image->texture_so->image)
-				mlx_destroy_image(image->mlx, image->texture_so->image);
-	}
+
+	if (image->texture_ea)
+		if (image->texture_ea->image)
+			mlx_destroy_image(image->mlx, image->texture_ea->image);
+	if (image->texture_we)
+		if (image->texture_we->image)
+			mlx_destroy_image(image->mlx, image->texture_we->image);
+	if (image->texture_no)
+		if (image->texture_no->image)
+			mlx_destroy_image(image->mlx, image->texture_no->image);
+	if (image->texture_so)
+		if (image->texture_so->image)
+			mlx_destroy_image(image->mlx, image->texture_so->image);
 }
 
 void	destroy_images(t_game *image, char *str)
 {
 	destroy_images_p1(image);
-	if (image->mlx_win)
-		mlx_destroy_window(image->mlx, image->mlx_win);
-	if (image->mlx_image)
-	{
-		mlx_destroy_image(image->mlx, image->mlx_image);
-		free(image->mlx);
-	}
-	if (image->mlx)
-	{
-		mlx_destroy_display(image->mlx);
-		free(image->mlx);
-	}
 	if (image->texture_no)
 		free(image->texture_no);
 	if (image->texture_so)
@@ -62,8 +48,18 @@ void	destroy_images(t_game *image, char *str)
 		free(image->texture_ea);
 	if (image->input)
 		free(image->input);
-	free(image);
-	exit_error_handler(str);
+	if (image->mlx_win)
+		mlx_destroy_window(image->mlx, image->mlx_win);
+	if (image->mlx_image)
+	{
+		mlx_destroy_image(image->mlx, image->mlx_image);
+	}
+	if (image->mlx)
+	{
+		mlx_destroy_display(image->mlx);
+		free(image->mlx);
+	}
+	simple_error_handler(str, image);
 }
 
 static void	load_wall(t_game *w)

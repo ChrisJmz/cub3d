@@ -6,7 +6,7 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 15:32:49 by cjimenez          #+#    #+#             */
-/*   Updated: 2023/01/16 01:25:23 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/22 23:54:30 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ char	**remap(char **map)
 	while (map[i] && check_line(map[i]) == 1)
 		i++;
 	if (check_line(map[i]) == 0)
-		return (remap = alloc_map(map, i), remap);
+		return (remap = alloc_map(map, i), free(map), remap);
 	return (NULL);
 }

@@ -3,81 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/14 14:01:49 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/12/27 21:03:10 by cjimenez         ###   ########.fr       */
+/*   Created: 2023/01/23 00:31:14 by skhali            #+#    #+#             */
+/*   Updated: 2023/01/23 00:31:15 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-char	*ft_get_line(char *str)
-{
-	int		i;
-	char	*s;
-
-	i = 0;
-	if (!str[i])
-		return (NULL);
-	while (str[i] && str[i] != '\n')
-		i++;
-	s = (char *)malloc(sizeof(char) * (i + 2));
-	if (!s)
-		return (NULL);
-	i = 0;
-	while (str[i] && str[i] != '\n')
-	{
-		s[i] = str[i];
-		i++;
-	}
-	if (str[i] == '\n')
-	{
-		s[i] = str[i];
-		i++;
-	}
-	s[i] = '\0';
-	return (s);
-}
-
-char	*ft_read(int fd, char *str)
-{
-	char	*buffer;
-	int		ret;
-
-	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buffer)
-		return (NULL);
-	ret = 1;
-	while (!ft_strchr(str, '\n') && ret)
-	{
-		ret = read(fd, buffer, BUFFER_SIZE);
-		if (ret == -1)
-		{
-			free(buffer);
-			return (NULL);
-		}
-		buffer[ret] = '\0';
-		str = ft_strjoin(str, buffer);
-	}
-	free(buffer);
-	return (str);
-}
+#include "get_next_line.h"
 
 char	*get_next_line(int fd)
 {
-	char			*line;
-	static char		*str = NULL;
+	static char	buf[BUFFER_SIZE + 1] = "";
+	char		*str;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || read(fd, NULL, 0) == -1 || BUFFER_SIZE <= 0)
 		return (0);
-	str = ft_read(fd, str);
+	str = malloc(sizeof(char) * 1);
 	if (!str)
+		return (0);
+	str[0] = '\0';
+	str = ft_strgrab(str, buf);
+	if (!str)
+		return (0);
+	if (already_contain_next_line(buf))
+	{
+		ft_remove_line(buf);
+		return (str);
+	}
+	str = get_str(buf, str, fd);
+	if (!str)
+		return (0);
+	ft_remove_line(buf);
+	return (str);
+}
+
+char	*get_str(char *buf, char *str, int fd)
+{
+	int	retour;
+
+	retour = 1;
+	while ((ft_no_return(buf)) && retour)
+	{
+		retour = read(fd, buf, BUFFER_SIZE);
+		if (retour == -1)
+			return (0);
+		buf[retour] = '\0';
+		str = ft_strgrab(str, buf);
+		if (!str)
+			return (0);
+	}
+	if (retour == 0 && str[0] == '\0')
 	{
 		free(str);
-		return (NULL);
+		return (0);
 	}
-	line = ft_get_line(str);
-	str = get_next_line2(str);
-	return (line);
+	return (str);
 }

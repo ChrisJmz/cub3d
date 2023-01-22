@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/27 20:55:17 by cjimenez          #+#    #+#             */
-/*   Updated: 2023/01/23 00:26:16 by skhali           ###   ########.fr       */
+/*   Created: 2023/01/23 00:31:20 by skhali            #+#    #+#             */
+/*   Updated: 2023/01/23 00:31:21 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 
-char	*ft_substr(char *s, unsigned int start, size_t len)
-{
-	char	*res;
-	size_t	len2;
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <stdlib.h>
+# include <unistd.h>
 
-	if (s == NULL)
-		return (NULL);
-	if ((unsigned int)ft_strlen(s) < start)
-		return (free(s), ft_strdup(""));
-	len2 = ft_strlen(s + start);
-	if (len2 < len)
-		len = len2;
-	res = malloc(sizeof(char) * (len + 1));
-	if (!res)
-		return (NULL);
-	ft_strlcpy(res, s + start, len + 1);
-	return (free(s), res);
-}
+#define BUFFER_SIZE 1
+char	*get_next_line(int fd);
+char	*ft_strgrab(char *str, char *buf);
+char	*get_str(char *buf, char *str, int fd);
+void	ft_remove_line(char *buf);
+int		already_contain_next_line(char *buf);
+int		ft_no_return(char *str);
+#endif
