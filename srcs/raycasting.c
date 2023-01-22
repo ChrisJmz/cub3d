@@ -6,7 +6,7 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 13:52:00 by skhali            #+#    #+#             */
-/*   Updated: 2023/01/22 11:38:01 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/22 12:26:43 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ static void	get_dist(t_game *window)
 
 static void	draw_game(t_game *window, int x)
 {
-	int i;
 	int	mid;
 	int	color;
 	
@@ -95,14 +94,13 @@ static void	draw_game(t_game *window, int x)
 	if (window->drawend >= SCREENHEIGHT || window->drawend < 0)
 		window->drawend = SCREENHEIGHT - 1;
 	window->drawend = SCREENHEIGHT - window->drawstart;
-	i = window->drawend;
 	printf("[%d][%d]\n", window->drawstart, window->drawend);
 	while (++mid < window->drawstart)
 		window->addr[mid * window->line_length / 4 +
 			x] = color;
 	if (mid <= window->drawend)
 		init_image(window, mid, x);
-	mid = i;
+	mid = window->drawend;
 	while (++mid < SCREENHEIGHT)
 		window->addr[mid * window->line_length / 4 +
 			x] = color;
