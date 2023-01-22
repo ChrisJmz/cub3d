@@ -6,7 +6,7 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 19:50:58 by cjimenez          #+#    #+#             */
-/*   Updated: 2023/01/17 12:48:44 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/22 11:30:47 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # define ROTATE_LEFT 65361
 # define ROTATE_RIGHT 65363
 
-# define SCREENWIDTH 1200	
-# define SCREENHEIGHT 600
+# define SCREENWIDTH 1920	
+# define SCREENHEIGHT 1080
 
 typedef struct s_path
 {
@@ -143,9 +143,15 @@ typedef struct s_game
 	t_texture	*texture_ea;
 	t_texture	*texture_no;
 	t_texture	*texture_so;
+	t_texture	texture[4];
 
 	double		wallx;
-	double		tex;
+	int		tex;
+	int		texy;
+	double		texpos;
+	double		step;
+
+	int		texdir;
 }	t_game;
 
 /* PARSING */
@@ -166,7 +172,7 @@ int		checkzero(char a, char b);
 
 /* ERROR HANDLERS*/
 int		simple_error_handler(char *str, t_game *map);
-void	exit_error_handler(char *str, t_game *map);
+void	exit_error_handler(char *str);
 
 /* MLX EVENTS */
 int		cross(t_game *game);
@@ -189,5 +195,8 @@ void	simple_moves(t_game *w);
 
 /* GRAPHICS */
 void	load_images(t_game *w);
+void	init_image(t_game *w, int mid, int x);
+
+void	ft_draw_texture(t_game *recup, int x, int y);
 
 #endif

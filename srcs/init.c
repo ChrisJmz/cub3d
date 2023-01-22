@@ -6,7 +6,7 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 13:52:00 by skhali            #+#    #+#             */
-/*   Updated: 2023/01/17 12:24:09 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/22 02:59:54 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,18 @@ void	init_direction(t_game *w, char direction)
 	}
 	else if (direction == 'S')
 	{
-		w->pdx = 0;
-		w->pdy = -1;
-	}
-	else if (direction == 'E')
-	{
 		w->pdx = 1;
 		w->pdy = 0;
 	}
+	else if (direction == 'E')
+	{
+		w->pdx = 0;
+		w->pdy = 1;
+	}
 	else if (direction == 'W')
 	{
-		w->pdx = -1;
-		w->pdy = 0;
+		w->pdx = 0;
+		w->pdy = -1;
 	}
 }
 
@@ -45,26 +45,24 @@ void	init_plane(t_game *w, char direction)
 	}
 	else if (direction == 'S')
 	{
-		w->planex = -1;
-		w->planey = 0;
+		w->planex = 0;
+		w->planey = -0.66;
 	}
 	else if (direction == 'E')
 	{
-		w->planex = 0;
-		w->planey = -1;
+		w->planex = 0.66;
+		w->planey = 0;
 	}
 	else if (direction == 'W')
 	{
-		w->planex = 0;
-		w->planey = 1;
+		w->planex = -0.66;
+		w->planey = 0;
 	}
 }
 
 void	init_start(t_game *window)
 {
 	check_direction(window->map, window);
-	printf("Position : [%f][%f] -> [%c]\n", window->px, window->py,
-		window->type);
 	init_direction(window, window->type);
 	init_plane(window, window->type);
 	window->input = malloc(sizeof(t_input));
@@ -80,6 +78,7 @@ int	image_init(t_game *window)
 	if (!window->mlx)
 		return (simple_error_handler("Error in the initialisation of the mlx.\n",
 				window));
+	load_images(window);
 	window->mlx_win = mlx_new_window(window->mlx, SCREENWIDTH, SCREENHEIGHT,
 			"Cub3D");
 	if (!window->mlx_win)
@@ -88,7 +87,7 @@ int	image_init(t_game *window)
 		return (simple_error_handler("Error in the creation of the window.\n",
 				window));
 	}
-	load_images(window);
+	window->mlx_image = mlx_new_image(window->mlx, SCREENWIDTH, SCREENHEIGHT);
 	init_start(window);
 	return (1);
 }
