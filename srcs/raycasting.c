@@ -6,7 +6,7 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 13:52:00 by skhali            #+#    #+#             */
-/*   Updated: 2023/01/22 12:26:43 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/22 21:59:47 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,28 +21,28 @@
 
 static void	get_firstdist(t_game *window)
 {
-	if (window->rayDirx < 0)
+	if (window->raydirx < 0)
 	{
 		window->stepx = -1;
-		window->sideDistx = (window->rayPosx - window->mapx)
+		window->sidedistx = (window->rayposx - window->mapx)
 			* window->deltadistx;
 	}
 	else
 	{
 		window->stepx = 1;
-		window->sideDistx = (window->mapx + 1.0 - window->rayPosx)
+		window->sidedistx = (window->mapx + 1.0 - window->rayposx)
 			* window->deltadistx;
 	}
-	if (window->rayDiry < 0)
+	if (window->raydiry < 0)
 	{
 		window->stepy = -1;
-		window->sideDisty = (window->rayPosy - window->mapy)
+		window->sidedisty = (window->rayposy - window->mapy)
 			* window->deltadisty;
 	}
 	else
 	{
 		window->stepy = 1;
-		window->sideDisty = (window->mapy + 1.0 - window->rayPosy)
+		window->sidedisty = (window->mapy + 1.0 - window->rayposy)
 			* window->deltadisty;
 	}
 }
@@ -56,15 +56,15 @@ static void	get_dist(t_game *window)
 	window->perpwalldist = 0;
 	while (window->hit == 0)
 	{
-		if (window->sideDistx < window->sideDisty)
+		if (window->sidedistx < window->sidedisty)
 		{
-			window->sideDistx += window->deltadistx;
+			window->sidedistx += window->deltadistx;
 			window->mapx += window->stepx;
 			window->side = 0;
 		}
 		else
 		{
-			window->sideDisty += window->deltadisty;
+			window->sidedisty += window->deltadisty;
 			window->mapy += window->stepy;
 			window->side = 1;
 		}
@@ -72,20 +72,18 @@ static void	get_dist(t_game *window)
 			window->hit = 1;
 	}
 	if (window->side == 0)
-		window->perpwalldist = (((double)window->mapx - window->rayPosx
-					+ (1 - (double)window->stepx) / 2) / window->rayDirx);
+		window->perpwalldist = (((double)window->mapx - window->rayposx
+					+ (1 - (double)window->stepx) / 2) / window->raydirx);
 	else
-		window->perpwalldist = (((double)window->mapy - window->rayPosy
-					+ (1 - (double)window->stepy) / 2) / window->rayDiry);
+		window->perpwalldist = (((double)window->mapy - window->rayposy
+					+ (1 - (double)window->stepy) / 2) / window->raydiry);
 }
 
 static void	draw_game(t_game *window, int x)
 {
 	int	mid;
-	int	color;
-	
+
 	mid = -1;
-	color = 0x00FF000;
 	window->lineheight = (int)(SCREENHEIGHT / window->perpwalldist);
 	window->drawstart = -window->lineheight / 2 + SCREENHEIGHT / 2;
 	if (window->drawstart < 0)
@@ -94,16 +92,14 @@ static void	draw_game(t_game *window, int x)
 	if (window->drawend >= SCREENHEIGHT || window->drawend < 0)
 		window->drawend = SCREENHEIGHT - 1;
 	window->drawend = SCREENHEIGHT - window->drawstart;
-	printf("[%d][%d]\n", window->drawstart, window->drawend);
 	while (++mid < window->drawstart)
-		window->addr[mid * window->line_length / 4 +
-			x] = color;
+		window->addr[mid * window->line_length / 4
+			+ x] = window->path.f;
 	if (mid <= window->drawend)
 		init_image(window, mid, x);
 	mid = window->drawend;
 	while (++mid < SCREENHEIGHT)
-		window->addr[mid * window->line_length / 4 +
-			x] = color;
+		window->addr[mid * window->line_length / 4 + x] = window->path.c;
 }
 
 void	raycasting_loop(t_game *window)
@@ -123,9 +119,9 @@ void	raycasting_loop(t_game *window)
 
 int	raycasting(t_game *window)
 {
-	/*if (window->mlx_image)
+	if (window->mlx_image)
 		mlx_destroy_image(window->mlx, window->mlx_image);
-	window->mlx_image = mlx_new_image(window->mlx, SCREENWIDTH, SCREENHEIGHT);*/
+	window->mlx_image = mlx_new_image(window->mlx, SCREENWIDTH, SCREENHEIGHT);
 	if (!window->mlx_image)
 	{
 		mlx_destroy_window(window->mlx, window->mlx_win);

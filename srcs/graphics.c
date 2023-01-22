@@ -6,7 +6,7 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 01:37:45 by skhali            #+#    #+#             */
-/*   Updated: 2023/01/22 12:18:18 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/22 21:38:06 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,56 +101,4 @@ void	load_images(t_game *w)
 	w->texture_we = malloc(sizeof(t_texture));
 	w->texture_we->image = NULL;
 	load_wall(w);
-}
-
-void	tex_loop(t_game *w, int mid, int x, t_texture *t)
-{
-	w->step = 1.0 * w->texture_no->height / w->lineheight;
-	w->texpos = (w->drawstart - SCREENHEIGHT / 2 +
-			w->lineheight / 2) * w->step;
-	printf("step [%f] texpos [%f] texx [%d]\n", w->step, w->texpos, w->tex);
-	while (mid <= w->drawend)
-	{
-		w->texy = (int)w->texpos &(t->height - 1);
-		w->texpos += w->step;
-		if (mid < SCREENHEIGHT && x < SCREENWIDTH)
-			w->addr[mid * w->line_length / 4 + x] = t->addr[w->texy * t->line_length / 4 + w->tex];
-		mid += 1;
-	}
-}
-//wallx : coordonnée sur x de la colonne que l'on veut utiliser
-//tex : coordonnée sur x dans la texture
-void	init_image(t_game *w, int mid, int x)
-{
-	if (w->side == 1)
-		w->wallx = w->rayPosx + ((w->mapy - w->rayPosy + (1 - w->stepy)/2)/w->rayDiry)*w->rayDirx;
-	else
-		w->wallx = w->rayPosy + ((w->mapx - w->rayPosx + (1 - w->stepx)/2)/w->rayDirx)*w->rayDiry;
-	w->wallx -= floor(w->wallx);
-	if (w->side == 0 && w->rayDirx >= 0)
-	{
-		w->tex = (int)(w->wallx * w->texture_so->width);
-		w->tex = w->texture_so->width - w->tex - 1;
-		printf("wallx [%f] tex [%d]\n", w->wallx, w->tex);
-		tex_loop(w, mid, x, w->texture_so);
-	}
-	else if (w->side == 0 && w->rayDirx < 0)
-	{
-		w->tex = (int)(w->wallx * w->texture_no->width);
-		w->tex = w->texture_no->width - w->tex - 1;
-		printf("wallx [%f] tex [%d]\n", w->wallx, w->tex);
-		tex_loop(w, mid, x, w->texture_no);
-	}
-	else if (w->side == 1 && w->rayDiry < 0)
-	{
-		w->tex = (int)(w->wallx * w->texture_we->width);
-		printf("wallx [%f] tex [%d]\n", w->wallx, w->tex);
-		tex_loop(w, mid, x, w->texture_we);
-	}
-	else if (w->side == 1 && w->rayDiry >= 0)
-	{
-		w->tex = (int)(w->wallx * w->texture_ea->width);
-		printf("wallx [%f] tex [%d]\n", w->wallx, w->tex);
-		tex_loop(w, mid, x, w->texture_ea);
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 13:52:00 by skhali            #+#    #+#             */
-/*   Updated: 2023/01/22 02:59:54 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/22 21:27:22 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ void	init_start(t_game *window)
 	init_direction(window, window->type);
 	init_plane(window, window->type);
 	window->input = malloc(sizeof(t_input));
-	window->rayPosx = window->px + 0.5;
-	window->rayPosy = window->py + 0.5;
+	window->rayposx = window->px + 0.5;
+	window->rayposy = window->py + 0.5;
 	window->speed = 0.0666f;
 	window->rot = 0.0785f;
 }
@@ -108,18 +108,18 @@ int	image_init(t_game *window)
 void	raycasting_init(t_game *window, int x)
 {
 	window->camerax = 2 * x / (double)SCREENWIDTH - 1;
-	window->rayDirx = window->pdx + window->planex * window->camerax;
-	window->rayDiry = window->pdy + window->planey * window->camerax;
-	window->mapx = (int)window->rayPosx;
-	window->mapy = (int)window->rayPosy;
-	if (window->rayDirx == 0)
+	window->raydirx = window->pdx + window->planex * window->camerax;
+	window->raydiry = window->pdy + window->planey * window->camerax;
+	window->mapx = (int)window->rayposx;
+	window->mapy = (int)window->rayposy;
+	if (window->raydirx == 0)
 		window->deltadistx = 1e30;
 	else
-		window->deltadistx = sqrt (1 + (window->rayDiry * window->rayDiry)
-				/ (window->rayDirx * window->rayDirx));
-	if (window->rayDiry == 0)
+		window->deltadistx = sqrt (1 + (window->raydiry * window->raydiry)
+				/ (window->raydirx * window->raydirx));
+	if (window->raydiry == 0)
 		window->deltadisty = 1e30;
 	else
-		window->deltadisty = sqrt(1 + (window->rayDirx * window->rayDirx)
-				/ (window->rayDiry * window->rayDiry));
+		window->deltadisty = sqrt(1 + (window->raydirx * window->raydirx)
+				/ (window->raydiry * window->raydiry));
 }

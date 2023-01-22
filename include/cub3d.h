@@ -6,7 +6,7 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 19:50:58 by cjimenez          #+#    #+#             */
-/*   Updated: 2023/01/22 11:30:47 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/22 21:32:50 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,92 +66,95 @@ typedef struct s_texture{
 	int		line_length;
 	int		endian;
 }	t_texture;
+//direction du vecteur sur x et y 
+//longueur du rayon entre chaque intersection
+//longueur du rayon
+//Valeurs pour la DDA
+//sur quelle case est la caméra
 typedef struct s_game
 {
-	void	*mlx;
-	void	*mlx_win;
-	void	*mlx_image;
+	void			*mlx;
+	void			*mlx_win;
+	void			*mlx_image;
 
-	int		*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
+	int				*addr;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
 
-	double	px;
-	double	py;
-	char	type;
+	double			px;
+	double			py;
+	char			type;
 
-	double	pdx;
-	double	pdy;
-	double	pa;
+	double			pdx;
+	double			pdy;
+	double			pa;
 
-	double	planex;
-	double	planey;
+	double			planex;
+	double			planey;
 
-	void	*player;
-	char	**map;
-	int		col;
-	int		row;
-	char	**file;
-	int		bmap;
-	char	*line;
-	struct s_path path;
-	int		win_x;
-	int		win_y;
+	void			*player;
+	char			**map;
+	int				col;
+	int				row;
+	char			**file;
+	int				bmap;
+	char			*line;
+	t_path			path;
+	int				win_x;
+	int				win_y;
 	unsigned int	*walls[4];
 
+	double			camerax;
+	double			rayposx;
+	double			rayposy;
+	double			raydirx;
+	double			raydiry;
 
-	double	camerax;
-	double	rayPosx;
-	double	rayPosy;
-	double	rayDirx;
-	double	rayDiry;
-	//Valeurs pour la DDA
-	//sur quelle case est la caméra
-	int		mapx;
-	int		mapy;
-	//longueur du rayon
-	double	sideDistx;
-	double	sideDisty;
-	//longueur du rayon entre chaque intersection
-	double	deltadistx;
-	double	deltadisty;
-	//direction du vecteur sur x et y 
-	int		stepx;
-	int		stepy;
+	int				mapx;
+	int				mapy;
 
-	int		hit;
-	int		side;
-	double	perpwalldist;
+	double			sidedistx;
+	double			sidedisty;
 
-	int		lineheight;
-	int		drawstart;
-	int		drawend;
+	double			deltadistx;
+	double			deltadisty;
 
-	double	speed;
-	double	rot;
-	int		move;
-	double	strafel;
-	double	strafer;
+	int				stepx;
+	int				stepy;
 
-	double	cos;
-	double	sin;
+	int				hit;
+	int				side;
+	double			perpwalldist;
 
-	t_input	*input;
+	int				lineheight;
+	int				drawstart;
+	int				drawend;
 
-	t_texture	*texture_we;
-	t_texture	*texture_ea;
-	t_texture	*texture_no;
-	t_texture	*texture_so;
-	t_texture	texture[4];
+	double			speed;
+	double			rot;
+	int				move;
+	double			strafel;
+	double			strafer;
 
-	double		wallx;
-	int		tex;
-	int		texy;
-	double		texpos;
-	double		step;
+	double			cos;
+	double			sin;
 
-	int		texdir;
+	t_input			*input;
+
+	t_texture		*texture_we;
+	t_texture		*texture_ea;
+	t_texture		*texture_no;
+	t_texture		*texture_so;
+	t_texture		texture[4];
+
+	double			wallx;
+	int				tex;
+	int				texy;
+	double			texpos;
+	double			step;
+
+	int				texdir;
 }	t_game;
 
 /* PARSING */

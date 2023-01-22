@@ -6,7 +6,7 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 22:41:27 by skhali            #+#    #+#             */
-/*   Updated: 2023/01/16 01:43:27 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/22 21:26:54 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,24 @@ void	simple_moves(t_game *w)
 {
 	if (w->input->forward == 1)
 	{
-		if (check_wall(w->rayPosx + (w->pdx * w->speed), w->rayPosy, w))
-			w->rayPosx += w->pdx * w->speed;
-		if (check_wall(w->rayPosx, w->rayPosy + (w->pdy * w->speed), w))
-			w->rayPosy += w->pdy * w->speed;
+		if (check_wall(w->rayposx + (w->pdx * w->speed), w->rayposy, w))
+			w->rayposx += w->pdx * w->speed;
+		if (check_wall(w->rayposx, w->rayposy + (w->pdy * w->speed), w))
+			w->rayposy += w->pdy * w->speed;
 	}
 	if (w->input->back == 1)
 	{
-		if (check_wall(w->rayPosx - w->pdx * (w->speed), w->rayPosy, w))
-			w->rayPosx -= w->pdx * w->speed;
-		if (check_wall(w->rayPosx, w->rayPosy - w->pdy * (w->speed), w))
-			w->rayPosy -= w->pdy * w->speed;
+		if (check_wall(w->rayposx - w->pdx * (w->speed), w->rayposy, w))
+			w->rayposx -= w->pdx * w->speed;
+		if (check_wall(w->rayposx, w->rayposy - w->pdy * (w->speed), w))
+			w->rayposy -= w->pdy * w->speed;
 	}
 	if (w->input->left == 1)
 	{
-		if (check_wall(w->rayPosx - w->pdy * (w->speed), w->rayPosy, w))
-			w->rayPosx -= w->pdy * w->speed;
-		if (check_wall(w->rayPosx, w->rayPosy + w->pdx * (w->speed), w))
-			w->rayPosy += w->pdx * w->speed;
+		if (check_wall(w->rayposx - w->pdy * (w->speed), w->rayposy, w))
+			w->rayposx -= w->pdy * w->speed;
+		if (check_wall(w->rayposx, w->rayposy + w->pdx * (w->speed), w))
+			w->rayposy += w->pdx * w->speed;
 	}
 }
 
@@ -66,10 +66,10 @@ void	rotate_moves(t_game *w)
 {
 	if (w->input->right == 1)
 	{
-		if (check_wall(w->rayPosx + w->pdy * (w->speed), w->rayPosy, w))
-			w->rayPosx += w->pdy * w->speed;
-		if (check_wall(w->rayPosx, w->rayPosy - w->pdx * (w->speed), w))
-			w->rayPosy -= w->pdx * w->speed;
+		if (check_wall(w->rayposx + w->pdy * (w->speed), w->rayposy, w))
+			w->rayposx += w->pdy * w->speed;
+		if (check_wall(w->rayposx, w->rayposy - w->pdx * (w->speed), w))
+			w->rayposy -= w->pdx * w->speed;
 	}
 	if (w->input->rotate_right == 1)
 		rotate(w, -1);
