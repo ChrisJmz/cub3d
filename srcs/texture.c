@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 17:51:17 by cjimenez          #+#    #+#             */
-/*   Updated: 2023/01/16 01:36:48 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/23 20:55:25 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int	check_texture(char **map, t_path *path)
 	}
 	if (path->no != 1 || path->so != 1 || path->we != 1 || path->ea != 1
 		|| path->f != 1 || path->c != 1)
+		return (1);
+	if (rgbCheck(path) == 1)
 		return (1);
 	return (0);
 }

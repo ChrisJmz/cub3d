@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 19:50:58 by cjimenez          #+#    #+#             */
-/*   Updated: 2023/01/23 19:00:19 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/23 20:54:54 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ int				check_first_and_last(char **map, int j, int i);
 int				check_in(char **map, int i, int j);
 int				check_walls(char **map, int j, int i);
 int				checkzero(char a, char b);
+int				rgbCheck(t_path *path);
 
 /* ERROR HANDLERS*/
 int				simple_error_handler(char *str, t_game *map);

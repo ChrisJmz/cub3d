@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 18:40:41 by skhali            #+#    #+#             */
-/*   Updated: 2023/01/23 19:03:27 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/23 20:55:05 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,20 @@ int	char_to_rgb(char *c, char *f, t_game *w)
 unsigned long	creatergb(int r, int g, int b)
 {
 	return (((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
+}
+
+int rgbCheck(t_path *path)
+{
+	int	i;
+	int	check;
+	i = 0;
+	while (path->f_path[i] && path->c_path[i])
+	{
+		if (path->f_path[i] == ',' && path->c_path[i] == ',')
+			check++;
+		i++;
+	}
+	if (check != 2)
+		return (1);
+	return (0);
 }
