@@ -3,81 +3,87 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/14 14:01:49 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/12/27 21:03:10 by cjimenez         ###   ########.fr       */
+/*   Created: 2023/01/23 19:09:11 by skhali            #+#    #+#             */
+/*   Updated: 2023/01/23 19:09:13 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "get_next_line.h"
 
-char	*ft_get_line(char *str)
+int	test_n(char *str)
 {
-	int		i;
-	char	*s;
+	int	i;
 
 	i = 0;
-	if (!str[i])
-		return (NULL);
-	while (str[i] && str[i] != '\n')
-		i++;
-	s = (char *)malloc(sizeof(char) * (i + 2));
-	if (!s)
-		return (NULL);
-	i = 0;
-	while (str[i] && str[i] != '\n')
+	if (!str)
+		return (0);
+	while (str[i])
 	{
-		s[i] = str[i];
+		if (str[i] == '\n')
+			return (1);
 		i++;
 	}
-	if (str[i] == '\n')
-	{
-		s[i] = str[i];
-		i++;
-	}
-	s[i] = '\0';
-	return (s);
+	return (0);
 }
 
-char	*ft_read(int fd, char *str)
+int	formate_line(char *str)
 {
-	char	*buffer;
-	int		ret;
+	int	i;
+	int	n;
 
-	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buffer)
-		return (NULL);
-	ret = 1;
-	while (!ft_strchr(str, '\n') && ret)
+	i = 0;
+	n = 0;
+	if (!str)
+		return (0);
+	while (str[i])
 	{
-		ret = read(fd, buffer, BUFFER_SIZE);
-		if (ret == -1)
-		{
-			free(buffer);
-			return (NULL);
-		}
-		buffer[ret] = '\0';
-		str = ft_strjoin(str, buffer);
+		if (str[i] == '\n')
+			n++;
+		if (n > 1)
+			return (0);
+		i++;
 	}
-	free(buffer);
-	return (str);
+	if (str[i - 1] == '\n')
+		return (1);
+	return (0);
+}
+
+void	*pmalloc(int size)
+{
+	void	*p;
+
+	p = malloc(size);
+	if (!p)
+		exit(1);
+	return (p);
 }
 
 char	*get_next_line(int fd)
 {
-	char			*line;
-	static char		*str = NULL;
+	char		*cursor;
+	char		*line;
+	static char	*stock = NULL;
+	int			ret;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (0);
-	str = ft_read(fd, str);
-	if (!str)
-	{
-		free(str);
+	if (BUFFER_SIZE < 0)
 		return (NULL);
+	ret = 1;
+	if (!test_n(stock))
+	{
+		cursor = pmalloc(BUFFER_SIZE + 1);
+		while (ret > 0)
+		{
+			ret = read(fd, cursor, BUFFER_SIZE);
+			if (ret <= 0)
+				break ;
+			cursor[ret] = '\0';
+			stock = ft_gnlstrjoin(stock, cursor);
+			if (test_n(cursor))
+				break ;
+		}
+		free(cursor);
 	}
-	line = ft_get_line(str);
-	str = get_next_line2(str);
-	return (line);
+	return (line = create_line(stock), stock = clean_stock(stock), line);
 }

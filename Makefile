@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+         #
+#    By: skhali <skhali@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/16 15:42:20 by nguiard           #+#    #+#              #
-#    Updated: 2023/01/14 02:02:34 by cjimenez         ###   ########.fr        #
+#    Updated: 2023/01/23 19:10:34 by skhali           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,11 +30,9 @@ SRC =	srcs/main.c	\
 		srcs/graphics.c		\
 		srcs/mouvement.c	\
 		srcs/raycasting.c	\
+		srcs/colors.c		\
 		
-SRC2D = 2D/test.c	\
-
 OBJS = $(SRC:.c=.o)
-OBJS2D = $(SRC2D:.c=.o)
 
 CC = gcc
 
@@ -60,13 +58,6 @@ s: $(OBJS)
 	make -C libft
 	make -C mlx_linux
 	$(CC) $(FLAGS) $(SANITIZE) $(OBJS) $(MLXFLAGS) $(LIBFTFLAGS) -o $(NAME)
-
-2D: $(NAME2D)
-
-$(NAME2D):	$(OBJS2D)
-	make -C libft
-	make -C mlx_linux
-	$(CC) $(FLAGS) $(OBJS2D) $(MLXFLAGS) $(LIBFTFLAGS) -o $(NAME2D)
 
 clean:
 	make -C libft clean

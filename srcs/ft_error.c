@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 17:16:55 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/12/28 17:18:10 by cjimenez         ###   ########.fr       */
+/*   Updated: 2023/01/23 17:10:16 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void    ft_error(char *msg)
+void	ft_error(char *msg, t_game *w)
 {
-    printf("%s\n", msg);
-    exit(1);
+	printf("%s\n", msg);
+	free(w);
+	exit(1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/11 11:07:57 by cmsjus            #+#    #+#             */
-/*   Updated: 2023/01/14 02:33:38 by cjimenez         ###   ########.fr       */
+/*   Created: 2023/01/23 19:09:25 by skhali            #+#    #+#             */
+/*   Updated: 2023/01/23 19:09:27 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ int		ft_printf(const char *str, ...);
 int		ft_printf_s(va_list arg);
 int		ft_printf_d(va_list arg);
 int		ft_params(char flag, va_list arg);
-size_t  ft_strlcpy(char *dest, const char *src, size_t dstsize);
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
+size_t	ft_strlcpy(char *dest, const char *src, size_t dstsize);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*ft_substr(char *s, unsigned int start, size_t len);
 void	ft_putstr_fd(char *s, int fd);
 void	*ft_memset(void *b, int c, size_t len);
 

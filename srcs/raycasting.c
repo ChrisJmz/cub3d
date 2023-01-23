@@ -3,106 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 13:52:00 by skhali            #+#    #+#             */
-/*   Updated: 2023/01/14 17:01:54 by cjimenez         ###   ########.fr       */
+/*   Updated: 2023/01/23 18:41:03 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-char Map2[mapWidth][mapHeight]=
-{
-  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,1,0,1,0,1,0,0,0,1},
-  {1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,1},
-  {1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,1,0,0,1,1,0,1,1,0,0,0,0,1,0,1,0,1,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-};
-
-//Eviter la division par 0 : la division par zéro tend vers l'infini
-//On donne un tres grand nombre à delta
-//Il faut faire une equation à 2 inconnue
-//taux d'accroissement (f(x2) - f(x1))/(x1 - x2)
-//si dx = 1 alors dy = m
-//donc x2 - x1 = 1 -> x2 = x1 + 1
-//f2 - f1 = dy/dx
-//dy = (f2 - f1)/dx
-//gradient/coeff directeur : m = dy/dx; m = newdy / newdx
-//dy/dx = newdy/newdx 
-//si dx = 1 : dy = newdy/newdx
-//si je divise d'un coté je divise de l'autre
-//Pythagore : sqrt(a^2 + b^2) -> a = 1; b = dy/dx
-void	raycasting_init(t_game *window, int x)
-{
-	window->camerax = 2 * x / (double)screenWidth - 1;
-	window->rayDirx = window->pdx + window->planex * window->camerax;
-	window->rayDiry = window->pdy + window->planey * window->camerax;
-	window->rayPosx = (double)window->px + 0.5 ;
-	window->rayPosy = (double)window->py + 0.5;
-	window->mapx = (int)window->rayPosx;
-	window->mapy = (int)window->rayPosy;
-	if (window->rayDirx == 0)
-		window->deltadistx = 1e30;
-	else
-		window->deltadistx = sqrt (1 + (window->rayDiry * window->rayDiry)
-				/ (window->rayDirx * window->rayDirx));
-	if (window->rayDiry == 0)
-		window->deltadisty = 1e30;
-	else
-		window->deltadisty = sqrt(1 + (window->rayDirx * window->rayDirx)
-				/ (window->rayDiry * window->rayDiry));
-}
-
 //si raydirx < 0 le rayon va sur la gauche sinon droite
 //calcule de la longueur du rayon du point de depart à la premiere intersection
 //on l'incremente ensuite au fur et à mesure en commencat par mapx pus mapy
 //qui reprensente le carré sur lequel on est 
-//pour avoir la pente d'un  vecteur, je multiplie par le coefficient directeur delta (la pente)
-void	get_firstdist(t_game *window)
+//pour avoir la pente d'un  vecteur, je multiplie par le coefficient directeur
+//delta (la pente)
+
+static void	get_firstdist(t_game *window)
 {
-	if (window->rayDirx < 0)
+	if (window->raydirx < 0)
 	{
 		window->stepx = -1;
-		window->sideDistx = (window->rayPosx - window->mapx)
+		window->sidedistx = (window->rayposx - window->mapx)
 			* window->deltadistx;
 	}
 	else
 	{
 		window->stepx = 1;
-		window->sideDistx = (window->mapx + 1.0 - window->rayPosx)
+		window->sidedistx = (window->mapx + 1.0 - window->rayposx)
 			* window->deltadistx;
 	}
-	if (window->rayDiry < 0)
+	if (window->raydiry < 0)
 	{
 		window->stepy = -1;
-		window->sideDisty = (window->rayPosy - window->mapy)
+		window->sidedisty = (window->rayposy - window->mapy)
 			* window->deltadisty;
 	}
 	else
 	{
 		window->stepy = 1;
-		window->sideDisty = (window->mapy + 1.0 - window->rayPosy)
+		window->sidedisty = (window->mapy + 1.0 - window->rayposy)
 			* window->deltadisty;
 	}
 }
@@ -110,71 +50,66 @@ void	get_firstdist(t_game *window)
 //on increment  et on agrandit le rayon tant qu'on n'a pas touché de wall
 //side pour les ombres
 //on corrige l'effet fisheyes
-void	get_dist(t_game *window)
+static void	get_dist(t_game *window)
 {
 	window->hit = 0;
 	window->perpwalldist = 0;
-
 	while (window->hit == 0)
 	{
-		if (window->sideDistx < window->sideDisty)
+		if (window->sidedistx < window->sidedisty)
 		{
-			window->sideDistx += window->deltadistx;
+			window->sidedistx += window->deltadistx;
 			window->mapx += window->stepx;
 			window->side = 0;
 		}
 		else
 		{
-			window->sideDisty += window->deltadisty;
+			window->sidedisty += window->deltadisty;
 			window->mapy += window->stepy;
 			window->side = 1;
 		}
-		if (window->map[window->mapy][window->mapx] == '1')
+		if (window->map[window->mapx][window->mapy] == '1')
 			window->hit = 1;
-		// if (Map2[window->mapx][window->mapy] == 1)
 	}
-	
 	if (window->side == 0)
-		window->perpwalldist = (((double)window->mapx - window->rayPosx
-					+ (1 - (double)window->stepx) / 2) / window->rayDirx);
+		window->perpwalldist = (((double)window->mapx - window->rayposx
+					+ (1 - (double)window->stepx) / 2) / window->raydirx);
 	else
-		window->perpwalldist = (((double)window->mapy - window->rayPosy
-					+ (1 - (double)window->stepy) / 2) / window->rayDiry);
+		window->perpwalldist = (((double)window->mapy - window->rayposy
+					+ (1 - (double)window->stepy) / 2) / window->raydiry);
 }
 
-void	draw_game(t_game *window, int x)
+static void	draw_game(t_game *window, int x)
 {
-	int	j;
-	int	color;
+	int	mid;
 
-	color = 0x00FF000;
-	if (window->side == 1)
-		color = color / 3;
-	window->lineheight = (int)(screenHeight / window->perpwalldist);
-	window->drawstart = -window->lineheight / 2 + screenHeight / 2;
+	mid = -1;
+	char_to_rgb(window->path.c_path, window->path.f_path, window);
+	window->lineheight = (int)(SCREENHEIGHT / window->perpwalldist);
+	window->drawstart = -window->lineheight / 2 + SCREENHEIGHT / 2;
 	if (window->drawstart < 0)
 		window->drawstart = 0;
-	window->drawend = window->lineheight / 2 + screenHeight / 2;
-	if (window->drawend >= screenHeight || window->drawend < 0)
-		window->drawend = screenHeight - 1;
-	//int j = -1;
-	j = window->drawstart;
-	window->drawend = screenHeight - window->drawstart;
-	while (++j < window->drawend)
-		window->addr[j * window->line_length / 4 + x] = color;
-	/*j = window->drawend;
-	while (++j < screenHeight)
-	{
-		window->addr[ j * window->line_length / 4 + x] = color;
-	}*/
+	window->drawend = window->lineheight / 2 + SCREENHEIGHT / 2;
+	if (window->drawend >= SCREENHEIGHT || window->drawend < 0)
+		window->drawend = SCREENHEIGHT - 1;
+	window->drawend = SCREENHEIGHT - window->drawstart;
+	while (++mid < window->drawstart)
+		window->addr[mid * window->line_length / 4
+			+ x] = creatergb(window->cr, window->cg, window->cb);
+	if (mid <= window->drawend)
+		init_image(window, mid, x);
+	mid = window->drawend;
+	while (++mid < SCREENHEIGHT)
+		window->addr[mid * window->line_length / 4
+			+ x] = creatergb(window->fr, window->fg, window->fb);
 }
 
-int	raycasting(t_game *window)
+void	raycasting_loop(t_game *window)
 {
 	int	x;
 
 	x = 0;
-	while (x < screenWidth)
+	while (x < SCREENWIDTH)
 	{
 		raycasting_init(window, x);
 		get_firstdist(window);
@@ -182,7 +117,24 @@ int	raycasting(t_game *window)
 		draw_game(window, x);
 		x++;
 	}
+}
+
+int	raycasting(t_game *window)
+{
+	if (window->mlx_image)
+		mlx_destroy_image(window->mlx, window->mlx_image);
+	window->mlx_image = mlx_new_image(window->mlx, SCREENWIDTH, SCREENHEIGHT);
+	if (!window->mlx_image)
+	{
+		close_win(window, "Error in the creation of an image.\n");
+		exit(1);
+	}
+	window->addr = (int *)mlx_get_data_addr(window->mlx_image,
+			&window->bits_per_pixel, &window->line_length, &window->endian);
+	raycasting_loop(window);
 	mlx_put_image_to_window(window->mlx, window->mlx_win,
 		window->mlx_image, 0, 0);
+	simple_moves(window);
+	rotate_moves(window);
 	return (0);
 }

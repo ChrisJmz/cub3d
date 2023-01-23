@@ -3,86 +3,128 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/27 21:03:00 by cjimenez          #+#    #+#             */
-/*   Updated: 2022/12/27 21:05:50 by cjimenez         ###   ########.fr       */
+/*   Created: 2022/09/05 13:45:26 by kyacini           #+#    #+#             */
+/*   Updated: 2023/01/23 17:54:35 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "get_next_line.h"
 
-char	*ft_strchr(char *s, int c)
+int	ft_gnlstrlen(char *str)
 {
-	int		i;
-	char	*p;
+	int	i;
 
-	i = 0;
-	if (!s)
+	if (!str)
 		return (0);
-	if (c == '\0')
-		return ((char *)&s[ft_strlen(s)]);
-	p = (char *)s;
-	while (s[i])
-	{
-		if (s[i] == (char)c)
-			return (p);
+	i = 0;
+	while (str[i])
 		i++;
-		p++;
-	}
-	return (0);
+	return (i);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_gnlstrdup(char *src)
 {
-	size_t	i;
-	size_t	j;
-	char	*p;
+	char	*retour;
+	int		i;
+	int		taille;
+
+	taille = 0;
+	i = 0;
+	if (!src)
+		return (NULL);
+	while (src[taille])
+		taille++;
+	retour = malloc(sizeof(char) * (taille + 1));
+	if (!retour)
+		return (NULL);
+	while (src[i])
+	{
+		retour[i] = src[i];
+		i++;
+	}
+	retour[i] = '\0';
+	return (retour);
+}
+
+char	*ft_gnlstrjoin(char *s1, char *s2)
+{
+	char	*new_chain;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
 	if (!s1)
-	{
-		s1 = (char *)malloc(sizeof(char) * 1);
-		s1[0] = '\0';
-	}
-	p = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!p)
+		return (ft_gnlstrdup(s2));
+	new_chain = malloc(ft_gnlstrlen(s1) + ft_gnlstrlen(s2) + 1);
+	if (!new_chain)
 		return (NULL);
-	while (s1[i])
+	new_chain[ft_gnlstrlen(s1) + ft_gnlstrlen(s2)] = '\0';
+	while (j < ft_gnlstrlen(s2) || (s2[0] == '\0' && j <= ft_gnlstrlen(s2)))
 	{
-		p[i] = s1[i];
+		while (i < ft_gnlstrlen(s1))
+		{
+			new_chain[i] = s1[i];
+			i++;
+		}
+		new_chain[i] = s2[j];
 		i++;
+		j++;
 	}
-	while (s2[j])
-		p[i++] = s2[j++];
-	p[i] = '\0';
 	free(s1);
-	return (p);
+	return (new_chain);
 }
 
-char	*get_next_line2(char *str)
+char	*create_line(char *str)
 {
+	char	*line;
+	int		i;
+	int		mem;
+
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (str[i] != '\n' && str[i])
+		i++;
+	i++;
+	line = pmalloc(i + 1);
+	line[i] = '\0';
+	mem = i;
+	i = 0;
+	while (i < mem)
+	{
+		line[i] = str[i];
+		i++;
+	}
+	return (line);
+}
+
+char	*clean_stock(char *str)
+{
+	char	*new;
 	int		i;
 	int		j;
-	char	*s;
 
 	i = 0;
-	while (str[i] && str[i] != '\n')
-		i++;
-	if (!str[i])
-	{
-		free(str);
-		return (NULL);
-	}
-	s = (char *)malloc(sizeof(char) * (ft_strlen(str) - i + 1));
-	if (!s)
-		return (NULL);
-	i++;
 	j = 0;
-	while (str[i])
-		s[j++] = str[i++];
-	s[j] = '\0';
+	if (!test_n(str) || !str || formate_line(str))
+		new = NULL;
+	else
+	{
+		while (str[i] != '\n' && str[i])
+			i++;
+		i++;
+		new = pmalloc(ft_gnlstrlen(str) - i + 1);
+		new[ft_gnlstrlen(str) - i] = '\0';
+		while (str[i])
+		{
+			new[j] = str[i];
+			j++;
+			i++;
+		}
+	}
 	free(str);
-	return (s);
+	return (new);
 }
