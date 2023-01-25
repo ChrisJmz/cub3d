@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 18:40:41 by skhali            #+#    #+#             */
-/*   Updated: 2023/01/23 20:55:05 by cjimenez         ###   ########.fr       */
+/*   Updated: 2023/01/25 00:25:04 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,21 @@ unsigned long	creatergb(int r, int g, int b)
 	return (((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
 }
 
-int rgbCheck(t_path *path)
+int	rgbcheck(char *path)
 {
-	int	i;
-	int	check;
+	int		i;
+	char	**tmp;
+
 	i = 0;
-	while (path->f_path[i] && path->c_path[i])
+	tmp = ft_split(path, ',');
+	if (ft_strstrlen(tmp) != 3)
+		return (free_split(tmp), 1);
+	while (tmp[i])
 	{
-		if (path->f_path[i] == ',' && path->c_path[i] == ',')
-			check++;
+		if (ft_isdigit(tmp[i]) == 0)
+			return (free_split(tmp), 1);
 		i++;
 	}
-	if (check != 2)
-		return (1);
+	free_split(tmp);
 	return (0);
 }

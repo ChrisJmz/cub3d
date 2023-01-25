@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 13:52:00 by skhali            #+#    #+#             */
-/*   Updated: 2023/01/23 18:20:43 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/25 00:54:38 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int	image_init(t_game *window)
 //f2 - f1 = dy/dx
 //dy = (f2 - f1)/dx
 //gradient/coeff directeur : m = dy/dx; m = newdy / newdx
-//dy/dx = newdy/newdx 
+//dy/dx = newdy/newdx
 //si dx = 1 : dy = newdy/newdx
 //si je divise d'un coté je divise de l'autre
 //Pythagore : sqrt(a^2 + b^2) -> a = 1; b = dy/dx

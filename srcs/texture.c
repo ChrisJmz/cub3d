@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 17:51:17 by cjimenez          #+#    #+#             */
-/*   Updated: 2023/01/23 20:55:25 by cjimenez         ###   ########.fr       */
+/*   Updated: 2023/01/24 22:40:29 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ void	textpath(t_game *data)
 			ft_strlen(data->path.we_path) - 1);
 	data->path.ea_path = ft_substr(data->path.ea_path, 0,
 			ft_strlen(data->path.ea_path) - 1);
+	data->path.f_path = ft_substr(data->path.f_path, 0,
+			ft_strlen(data->path.f_path) - 1);
+	data->path.c_path = ft_substr(data->path.c_path, 0,
+			ft_strlen(data->path.c_path) - 1);
 }
 
 void	init_null(t_path *path)
@@ -85,8 +89,6 @@ int	check_texture(char **map, t_path *path)
 	}
 	if (path->no != 1 || path->so != 1 || path->we != 1 || path->ea != 1
 		|| path->f != 1 || path->c != 1)
-		return (1);
-	if (rgbCheck(path) == 1)
 		return (1);
 	return (0);
 }

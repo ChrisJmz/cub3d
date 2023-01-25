@@ -6,7 +6,7 @@
 /*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 19:50:58 by cjimenez          #+#    #+#             */
-/*   Updated: 2023/01/23 20:54:54 by cjimenez         ###   ########.fr       */
+/*   Updated: 2023/01/25 01:04:05 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct s_texture{
 	int		line_length;
 	int		endian;
 }	t_texture;
-//direction du vecteur sur x et y 
+//direction du vecteur sur x et y
 //longueur du rayon entre chaque intersection
 //longueur du rayon
 //Valeurs pour la DDA
@@ -180,7 +180,7 @@ int				check_first_and_last(char **map, int j, int i);
 int				check_in(char **map, int i, int j);
 int				check_walls(char **map, int j, int i);
 int				checkzero(char a, char b);
-int				rgbCheck(t_path *path);
+int				rgbcheck(char *path);
 
 /* ERROR HANDLERS*/
 int				simple_error_handler(char *str, t_game *map);

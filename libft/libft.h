@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 19:09:25 by skhali            #+#    #+#             */
-/*   Updated: 2023/01/23 19:09:27 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/25 00:26:25 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_list
 }					t_list;
 
 int		ft_atoi(const char *str);
-int		ft_isdigit(int c);
+char	ft_isdigit(char *str);
 char	*ft_itoa(int n);
 void	ft_putchar(char c);
 void	ft_putstr(const char *str);
@@ -39,7 +39,7 @@ int		ft_strlen(const char *s);
 char	*ft_strncpy(char *str, int nb);
 char	*get_next_line(int fd);
 char	*get_next_line2(char *str);
-char	*ft_strchr(char *s, int c);
+char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char *s1, char *s2);
 void	ft_swap(char *s1, char *s2);
 int		ft_content_pos_x(char **map, char c);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   filecheck.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cjimenez <cjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 20:06:15 by cjimenez          #+#    #+#             */
-/*   Updated: 2023/01/23 18:49:06 by skhali           ###   ########.fr       */
+/*   Updated: 2023/01/25 00:29:31 by cjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,10 @@ int	init_file(t_game *data, char *file)
 	if (check_texture(data->map, &data->path) == 1)
 		ft_error2("Error in texture", data);
 	textpath(data);
+	if (rgbcheck(data->path.f_path) == 1)
+		ft_error2("Error RGB in F", data);
+	if (rgbcheck(data->path.c_path) == 1)
+		ft_error2("Error RGB in C", data);
 	data->map = remap(data->map);
 	if (!data->map)
 		ft_error2("Malloc error in map.", data);
